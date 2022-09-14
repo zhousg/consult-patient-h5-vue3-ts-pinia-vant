@@ -11,6 +11,7 @@ specifiers:
   eslint-plugin-vue: ^9.3.0
   npm-run-all: ^4.1.5
   pinia: ^2.0.21
+  pinia-plugin-persistedstate: ^2.2.0
   prettier: ^2.7.1
   sass: ^1.54.9
   typescript: ~4.7.4
@@ -21,6 +22,7 @@ specifiers:
 
 dependencies:
   pinia: 2.0.22_uxrvejtcwrakwzzo6hlouuo2vq
+  pinia-plugin-persistedstate: 2.2.0_pinia@2.0.22
   vue: 3.2.39
   vue-router: 4.1.5_vue@3.2.39
 
@@ -1738,6 +1740,17 @@ packages:
     resolution: {integrity: sha512-C3FsVNH1udSEX48gGX1xfvwTWfsYWj5U+8/uK15BGzIGrKoUpghX8hWZwa/OFnakBiiVNmBvemTJR5mcy7iPcg==}
     engines: {node: '>=4'}
     dev: true
+
+  /pinia-plugin-persistedstate/2.2.0_pinia@2.0.22:
+    resolution: {integrity: sha512-j3CknBg4H17MXDwG+X6JT50wmGkxG5cWshVb5pdV8o/ivMxiVsML9ADwe7SEchas1myIWd6/sYeVv0/IGT5YrQ==}
+    peerDependencies:
+      pinia: ^2.0.0
+    peerDependenciesMeta:
+      pinia:
+        optional: true
+    dependencies:
+      pinia: 2.0.22_uxrvejtcwrakwzzo6hlouuo2vq
+    dev: false
 
   /pinia/2.0.22_uxrvejtcwrakwzzo6hlouuo2vq:
     resolution: {integrity: sha512-u+b8/BC+tmvo3ACbYO2w5NfxHWFOjvvw9DQnyT0dW8aUMCPRQT5QnfZ5R5W2MzZBMTeZRMQI7V/QFbafmM9QHw==}
