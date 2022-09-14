@@ -19,7 +19,8 @@ module.exports = {
         singleQuote: true,
         semi: false,
         printWidth: 100,
-        trailingComma: 'none'
+        trailingComma: 'none',
+        endOfLine: 'auto'
       }
     ],
     'vue/multi-word-component-names': [
