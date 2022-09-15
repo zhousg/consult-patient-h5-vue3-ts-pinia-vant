@@ -4,6 +4,8 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 import { VantResolver } from 'unplugin-vue-components/resolvers'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -17,6 +19,11 @@ export default defineConfig({
       dts: false,
       // 在main.ts已经引入了所有的样式，不需要自动导入要是，只需要自动导入组件即可。
       resolvers: [VantResolver({ importStyle: false })]
+    }),
+    // 打包svg图标
+    createSvgIconsPlugin({
+      // 指定svg图标的目录
+      iconDirs: [path.resolve(process.cwd(), 'src/icons')]
     })
   ],
   resolve: {
