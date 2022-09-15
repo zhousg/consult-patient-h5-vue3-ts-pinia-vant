@@ -11,6 +11,7 @@ export default defineConfig({
   base: '/',
   plugins: [
     vue(),
+    // 默认自动加载 components 下的组件，通用级别组件。
     Components({
       // 默认是 true 开启自动生成组件的类型声明文件，vant的组件已经有类型声明文件，只要导入了就会使用类型声明。
       dts: false,
