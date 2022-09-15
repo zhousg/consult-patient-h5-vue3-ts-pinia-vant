@@ -1,9 +1,36 @@
 <script setup lang="ts">
+// 需求：
+// 1. 实现点击返回按钮，放回上一个页面（历史记录）
+// 2. 暴露一个props属性，title 设置标题
+// 3. 暴露一个props属性，rightText 设置标题
+// 4. 点击右侧的文字按钮，要做的事情是无法确定的。通过事件来通知父组件
+
+import { useRouter } from 'vue-router'
+
+defineProps<{
+  title?: string
+  rightText?: string
+}>()
+
+const router = useRouter()
 const onClickLeft = () => {
   // 实现返回
+  // 如果有当前网站的上一个历史记录，可以执行back()返回即可
+  // 没有记录？跳转首页
+  if (history.state?.back) {
+    router.back()
+  } else {
+    router.push('/')
+  }
 }
+
+const emit = defineEmits<{
+  // eslint-disable-next-line no-unused-vars
+  (e: 'click-right'): void
+}>()
 const onClickRight = () => {
   // 点击右侧的文字按钮，执行的逻辑
+  emit('click-right')
 }
 </script>
 
@@ -11,8 +38,8 @@ const onClickRight = () => {
   <van-nav-bar
     left-arrow
     @click-left="onClickLeft"
-    title="标题"
-    right-text="按钮"
+    :title="title"
+    :right-text="rightText"
     @click-right="onClickRight"
   ></van-nav-bar>
 </template>
