@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-const agree = ref(false)  
+const agree = ref(false)
 </script>
 
 <template>
