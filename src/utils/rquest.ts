@@ -1,7 +1,8 @@
 // 二次封装axios
 import router from '@/router'
 import { useUserStore } from '@/stores'
-import axios from 'axios'
+import type { User } from '@/types/user'
+import axios, { type Method } from 'axios'
 import { Toast } from 'vant'
 // 1. axios的配置
 // 1.1 创建一个新的axios实例，配置基准地址，配置响应超时时间
@@ -61,4 +62,41 @@ instance.interceptors.response.use(
   }
 )
 
+// obj = { name: 'jack', age: 100 }  obj['name'] ===> const name = 'name'  obj[name]
+
 // 2. 请求工具函数
+// 2.1 参数：url  method  submitData
+// 2.2 返回：instance 调用接口的promise对象
+// const request = (url: string, method: string, submitData: object) => {
+//   return instance.request({
+//     url,
+//     method,
+//     // 区分get和其他请求post
+//     // get 提交数据，选项：params
+//     // 其他请求post 提交数据，选项：data
+//     [method.toLowerCase() === 'get' ? 'params' : 'data']: submitData
+//   })
+// }
+type Data<T> = {
+  code: string
+  message: string
+  data: T
+}
+const request = <T>(url: string, method: Method = 'get', submitData?: object) => {
+  // 泛型的第二个参数，可以自定义响应数据类型
+  return instance.request<T, Data<T>>({
+    url,
+    method,
+    // 区分get和其他请求post
+    // get 提交数据，选项：params
+    // 其他请求post 提交数据，选项：data
+    [method.toLowerCase() === 'get' ? 'params' : 'data']: submitData
+  })
+}
+
+request<User>('/user', 'get').then((res) => {
+  // 现在返回的数据 res  是后台返回的数据，因为剥离了一层
+  res.data.avatar
+})
+
+export { baseURL, instance }
