@@ -1,11 +1,12 @@
 // 二次封装axios
+import router from '@/router'
 import { useUserStore } from '@/stores'
 import axios from 'axios'
 import { Toast } from 'vant'
 // 1. axios的配置
 // 1.1 创建一个新的axios实例，配置基准地址，配置响应超时时间
 // 1.2 添加请求拦截器，在请求头携带token
-// 1.3 添加响应拦截器，401错误拦截去登录页面，判断业务是否成功，剥离无效的数据
+// 1.3 添加响应拦截器，判断业务是否成功，剥离无效的数据，401错误拦截去登录页面(删除当前用户信息)，
 const baseURL = 'https://consult-api.itheima.net/'
 const instance = axios.create({
   baseURL,
@@ -41,6 +42,20 @@ instance.interceptors.response.use(
   },
   (err) => {
     // 请求报错，响应出错
+    // 遇见401跳转登录
+    // 1. 现在在 /user/patient 页面下，发起一个获取用户信息的请求，但是此时token失效
+    // 2. 跳转登录页面，登录成功之后，需要跳转回 /user/patient 页面 （默认跳转 /user 首页）
+    // vue2  $router 路由实例，提供路由相关函数操作  $route  路由相关信息，query params path 。。。
+    if (err.response.status === 401) {
+      // 需要删除用户信息
+      const store = useUserStore()
+      store.delUser()
+      // /user/patient?id=1000
+      // path  /user/patient  不带查询参数
+      // fullPath  /user/patient?id=1000  完整路径
+      // currentRoute 是一个 ref 创建的数据，需要.value
+      router.push(`/login?returnUrl=${router.currentRoute.value.fullPath}`)
+    }
 
     return Promise.reject(err)
   }
