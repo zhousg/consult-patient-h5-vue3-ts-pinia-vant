@@ -1,7 +1,6 @@
 // 二次封装axios
 import router from '@/router'
 import { useUserStore } from '@/stores'
-import type { User } from '@/types/user'
 import axios, { type Method } from 'axios'
 import { Toast } from 'vant'
 // 1. axios的配置
@@ -94,9 +93,4 @@ const request = <T>(url: string, method: Method = 'get', submitData?: object) =>
   })
 }
 
-request<User>('/user', 'get').then((res) => {
-  // 现在返回的数据 res  是后台返回的数据，因为剥离了一层
-  res.data.avatar
-})
-
-export { baseURL, instance }
+export { baseURL, instance, request }
