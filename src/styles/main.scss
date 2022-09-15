@@ -18,3 +18,16 @@
   // 覆盖vant主题色
   --van-primary-color: var(--cp-primary)
 }
+
+// 全局样式
+body {
+  font-size: 14px;
+  color: var(--cp-text1);
+}
+a {
+  color: var(--cp-text2);
+}
+h1,h2,h3,h4,h5,h6,p,ul,ol {
+  margin: 0;
+  padding: 0;
+}
