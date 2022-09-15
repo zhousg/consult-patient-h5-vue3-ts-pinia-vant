@@ -4,7 +4,7 @@ import { Button as VanButton, Checkbox as VanCheckbox } from 'vant'
 
 <template>
   <div class="login-page">
-    <van-button>按钮</van-button>
+    <van-button type="primary">按钮</van-button>
     <van-checkbox>复选框</van-checkbox>
   </div>
 </template>

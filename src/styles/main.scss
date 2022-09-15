@@ -1,1 +1,20 @@
 // 项目共用样式文件
+
+:root {
+  // 问诊患者：色板
+  --cp-primary: #16C2A3;
+  --cp-plain: #EAF8F6;
+  --cp-orange: #FCA21C;
+  --cp-text1: #121826;
+  --cp-text2: #3C3E42;
+  --cp-text3: #6F6F6F;
+  --cp-tag: #848484;
+  --cp-dark: #979797;
+  --cp-tip: #C3C3C5;
+  --cp-disable: #D9DBDE;
+  --cp-line: #EDEDED;
+  --cp-bg: #F6F7F9;
+  --cp-price: #EB5757;
+  // 覆盖vant主题色
+  --van-primary-color: var(--cp-primary)
+}
