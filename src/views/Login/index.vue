@@ -2,7 +2,7 @@
 import { onUnmounted, ref } from 'vue'
 import { mobileRules, passwordRules, codeRules } from '@/utils/rules'
 import { Toast, type FormInstance } from 'vant'
-import { loginByPassword, sendMobileCode } from '@/services/user'
+import { loginByCode, loginByPassword, sendMobileCode } from '@/services/user'
 import { useUserStore } from '@/stores'
 import { useRoute, useRouter } from 'vue-router'
 
@@ -15,10 +15,13 @@ const password = ref('')
 const store = useUserStore()
 const router = useRouter()
 const route = useRoute()
+// 同时支持 密码登录 和  短信登录
 const login = async () => {
   // 当表单校验成功后触发 submit 事件 触发这个 login 函数
   if (!agree.value) return Toast('请勾选用户协议')
-  const res = await loginByPassword(mobile.value, password.value)
+  const res = isPass.value
+    ? await loginByPassword(mobile.value, password.value)
+    : await loginByCode(mobile.value, code.value)
   // 成功：存储用户信息+跳转地址+成功提示
   store.setUser(res.data)
   router.replace((route.query.returnUrl as string) || '/user')
