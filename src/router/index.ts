@@ -43,6 +43,11 @@ const router = createRouter({
           meta: { title: '我的' }
         }
       ]
+    },
+    {
+      path: '/user/patient',
+      component: () => import('@/views/User/PatientPage.vue'),
+      meta: { title: '家庭档案' }
     }
   ]
 })
