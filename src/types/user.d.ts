@@ -23,3 +23,14 @@ type UserInfo = OmitUser & {
     finishedNumber: number
   }
 }
+
+// 患者类型
+type Patient = {
+  id: string
+  name: string
+  idCard: string
+  gender: 0 | 1
+  genderValue: string
+  age: number
+  defaultFlag: 0 | 1
+}
