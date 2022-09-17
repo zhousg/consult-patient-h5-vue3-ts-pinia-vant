@@ -1,6 +1,6 @@
 // 用户相关的接口请求函数都在这
 
-import type { CodeType, User } from '@/types/user'
+import type { CodeType, User, UserInfo } from '@/types/user'
 import { request } from '@/utils/rquest'
 
 export const loginByPassword = (mobile: string, password: string) =>
@@ -11,3 +11,5 @@ export const sendMobileCode = (mobile: string, type: CodeType) =>
 
 export const loginByCode = (mobile: string, code: string) =>
   request<User>('login', 'POST', { mobile, code })
+
+export const getUserInfo = () => request<UserInfo>('patient/myUser')
