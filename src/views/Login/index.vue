@@ -2,6 +2,11 @@
 import { ref } from 'vue'
 
 const agree = ref(false)
+const show = ref(false)
+
+// 表单的数据
+const mobile = ref('')
+const password = ref('')
 </script>
 
 <template>
@@ -16,8 +21,12 @@ const agree = ref(false)
     </div>
     <!-- form 表单 -->
     <van-form autocomplete="off">
-      <van-field type="text" placeholder="请输入手机号"></van-field>
-      <van-field type="password" placeholder="请输入密码"></van-field>
+      <van-field v-model="mobile" type="text" placeholder="请输入手机号"></van-field>
+      <van-field v-model="password" :type="show ? 'text' : 'password'" placeholder="请输入密码">
+        <template #button>
+          <cp-icon @click="show = !show" :name="`login-eye-${show ? 'on' : 'off'}`"></cp-icon>
+        </template>
+      </van-field>
       <div class="cp-cell">
         <van-checkbox v-model="agree">
           <span>我已同意</span>
@@ -33,11 +42,6 @@ const agree = ref(false)
         <a href="javascript:;">忘记密码？</a>
       </div>
     </van-form>
-    <!-- 测试svg图标 -->
-    <!-- 'icon-[dir]-[name]' dir图标所在目录  name图标的名称 -->
-    <svg aria-hidden="true">
-      <use href="#icon-home-docs" />
-    </svg>
     <div class="login-other">
       <van-divider>第三方登录</van-divider>
       <div class="icon">

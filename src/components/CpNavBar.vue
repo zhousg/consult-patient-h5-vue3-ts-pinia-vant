@@ -25,7 +25,6 @@ const onClickLeft = () => {
 }
 
 const emit = defineEmits<{
-  // eslint-disable-next-line no-unused-vars
   (e: 'click-right'): void
 }>()
 const onClickRight = () => {
