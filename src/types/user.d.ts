@@ -5,3 +5,6 @@ export type User = {
   mobile: string
   token: string
 }
+
+// 验证码类型
+export type CodeType = 'login' | 'register' | 'changeMobile' | 'forgetPassword' | 'bindMobile'
