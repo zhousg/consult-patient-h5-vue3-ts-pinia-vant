@@ -9,6 +9,17 @@ onMounted(async () => {
   const res = await getUserInfo()
   user.value = res.data
 })
+
+// tools 的数据
+const tools = [
+  { label: '我的问诊', path: '/user/consult' },
+  { label: '我的处方', path: '/' },
+  { label: '家庭档案', path: '/user/patient' },
+  { label: '地址管理', path: '/user/address' },
+  { label: '我的评价', path: '/' },
+  { label: '官方客服', path: '/' },
+  { label: '设置', path: '/' }
+]
 </script>
 
 <template>
@@ -71,6 +82,20 @@ onMounted(async () => {
           <p>已完成</p>
         </van-col>
       </van-row>
+    </div>
+    <!-- 工具栏 -->
+    <div class="user-page-group">
+      <h3>快捷工具</h3>
+      <van-cell
+        v-for="(item, i) in tools"
+        :key="i"
+        :title="item.label"
+        :to="item.path"
+        is-link
+        :border="false"
+      >
+        <template #icon><cp-icon :name="`user-tool-0${i + 1}`" /></template>
+      </van-cell>
     </div>
   </div>
 </template>
@@ -150,6 +175,23 @@ onMounted(async () => {
         font-size: 12px;
         padding-top: 4px;
       }
+    }
+  }
+  // 分组
+  &-group {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    h3 {
+      padding-left: 16px;
+      line-height: 44px;
+    }
+    .van-cell {
+      align-items: center;
+    }
+    .cp-icon {
+      font-size: 17px;
+      margin-right: 10px;
     }
   }
 }
