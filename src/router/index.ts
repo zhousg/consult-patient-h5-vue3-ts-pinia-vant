@@ -16,16 +16,32 @@ import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    { path: '/login', component: () => import('@/views/Login/index.vue') },
+    { path: '/login', component: () => import('@/views/Login/index.vue'), meta: { title: '登录' } },
     {
       path: '/',
       component: () => import('@/views/Layout/index.vue'),
       redirect: '/home',
       children: [
-        { path: '/home', component: () => import('@/views/Home/index.vue') },
-        { path: '/article', component: () => import('@/views/Article/index.vue') },
-        { path: '/notify', component: () => import('@/views/Notify/index.vue') },
-        { path: '/user', component: () => import('@/views/User/index.vue') }
+        {
+          path: '/home',
+          component: () => import('@/views/Home/index.vue'),
+          meta: { title: '首页' }
+        },
+        {
+          path: '/article',
+          component: () => import('@/views/Article/index.vue'),
+          meta: { title: '健康百科' }
+        },
+        {
+          path: '/notify',
+          component: () => import('@/views/Notify/index.vue'),
+          meta: { title: '消息通知' }
+        },
+        {
+          path: '/user',
+          component: () => import('@/views/User/index.vue'),
+          meta: { title: '我的' }
+        }
       ]
     }
   ]
@@ -33,6 +49,8 @@ const router = createRouter({
 
 // 访问权限控制
 router.beforeEach((to) => {
+  // 修改标题
+  document.title = `149优医问诊-${to.meta.title}`
   // 如果 return true 或啥也不写 就是放行
   // 拦截到某个页面，return '路由地址'
   const store = useUserStore()
