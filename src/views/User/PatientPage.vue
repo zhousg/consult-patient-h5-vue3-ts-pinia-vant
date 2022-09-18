@@ -16,7 +16,11 @@ const options = [
   { label: '女', value: 0 }
 ]
 
-const gender = ref(1)
+// 侧边栏的弹出
+const show = ref(false)
+const showPopup = () => {
+  show.value = true
+}
 </script>
 
 <template>
@@ -33,20 +37,30 @@ const gender = ref(1)
         <div class="icon"><cp-icon name="user-edit" /></div>
         <div class="tag" v-if="item.defaultFlag === 1">默认</div>
       </div>
-      <div class="patient-add" v-if="list.length < 6">
+      <div class="patient-add" v-if="list.length < 6" @click="showPopup">
         <cp-icon name="user-add" />
         <p>添加患者</p>
       </div>
       <div class="patient-tip">最多可添加 6 人</div>
     </div>
-    <!-- 测试cp-radio-btn组件 -->
-    <cp-radio-btn :options="options" v-model="gender"></cp-radio-btn>
+    <!-- 弹出层 -->
+    <van-popup v-model:show="show" position="right">
+      <cp-nav-bar :back="() => (show = false)" title="添加患者"></cp-nav-bar>
+    </van-popup>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .patient-page {
   padding: 46px 0 80px;
+  ::v-deep() {
+    .van-popup {
+      width: 100%;
+      height: 100%;
+      padding-top: 46px;
+      box-sizing: border-box;
+    }
+  }
 }
 .patient-list {
   padding: 15px;

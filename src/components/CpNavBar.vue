@@ -7,13 +7,15 @@
 
 import { useRouter } from 'vue-router'
 
-defineProps<{
+const props = defineProps<{
   title?: string
   rightText?: string
+  back?: () => void
 }>()
 
 const router = useRouter()
 const onClickLeft = () => {
+  if (props.back) return props.back()
   // 实现返回
   // 如果有当前网站的上一个历史记录，可以执行back()返回即可
   // 没有记录？跳转首页
