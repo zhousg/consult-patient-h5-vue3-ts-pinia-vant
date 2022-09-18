@@ -4,12 +4,24 @@ defineProps<{
     label: string
     value: number | string
   }[]
+  modelValue?: number | string
+}>()
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: number | string): void
 }>()
 </script>
 
 <template>
   <div class="cp-radio-btn">
-    <a class="item" href="javascript:;" v-for="item in options" :key="item.value">
+    <a
+      class="item"
+      href="javascript:;"
+      v-for="item in options"
+      :key="item.value"
+      :class="{ active: modelValue === item.value }"
+      @click="emit('update:modelValue', item.value)"
+    >
       {{ item.label }}
     </a>
   </div>
