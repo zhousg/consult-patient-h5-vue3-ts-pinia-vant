@@ -2,7 +2,6 @@
 import { getPatientList } from '@/services/user'
 import type { Patient } from '@/types/user'
 import { onMounted, ref } from 'vue'
-import ComA from '../../test/ComA.vue'
 
 const list = ref<Patient[]>([])
 const getList = async () => {
@@ -12,9 +11,10 @@ const getList = async () => {
 onMounted(() => {
   getList()
 })
-
-const count = ref(100)
-const car = ref('黄包车')
+const options = [
+  { label: '男', value: 1 },
+  { label: '女', value: 0 }
+]
 </script>
 
 <template>
@@ -37,10 +37,8 @@ const car = ref('黄包车')
       </div>
       <div class="patient-tip">最多可添加 6 人</div>
     </div>
-    <!-- v-model语法糖Vue3的 -->
-    <!-- <com-a :model-value="count" @update:model-value="count = $event"></com-a> -->
-    <!-- <com-a v-model="count" :car="car" @update:car="car = $event"></com-a> -->
-    <com-a v-model="count" v-model:car="car"></com-a>
+    <!-- 测试cp-radio-btn组件 -->
+    <cp-radio-btn :options="options"></cp-radio-btn>
   </div>
 </template>
 
