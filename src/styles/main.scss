@@ -45,3 +45,18 @@ ol {
   margin: 0;
   padding: 0;
 }
+
+// 全局覆盖van-tab样式
+.van-tabs {
+  .van-tabs__nav {
+    padding: 0 0 15px 0;
+  }
+  .van-tabs__line {
+    width: 20px;
+    background-color: var(--cp-primary);
+  }
+  .van-tab {
+    padding: 0 15px;
+  }
+}
+
