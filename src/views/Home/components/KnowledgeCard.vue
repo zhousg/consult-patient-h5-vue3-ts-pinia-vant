@@ -1,40 +1,37 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { Knowledge } from '@/types/consult'
+
+defineProps<{
+  item: Knowledge
+}>()
+</script>
 
 <template>
   <div class="knowledge-card van-hairline--bottom">
     <div class="head">
-      <van-image
-        round
-        class="avatar"
-        src="https://yanxuan-item.nosdn.127.net/9ad83e8d9670b10a19b30596327cfd14.png"
-      ></van-image>
+      <van-image round class="avatar" :src="item.creatorAvatar"></van-image>
       <div class="info">
-        <p class="name">张医生</p>
-        <p class="dep van-ellipsis">积水潭医院 骨科 主任医师</p>
+        <p class="name">{{ item.creatorName }}</p>
+        <p class="dep van-ellipsis">
+          {{ item.creatorHospatalName }} {{ item.creatorDep }} {{ item.creatorTitles }}
+        </p>
       </div>
-      <van-button class="btn" size="small" round>+ 关注</van-button>
+      <van-button class="btn" size="small" round>{{
+        item.likeFlag === 1 ? '已关注' : '+ 关注'
+      }}</van-button>
     </div>
     <div class="body">
-      <h3 class="title van-ellipsis">高血压是目前世界上最常见，发病率最高的慢性病之一</h3>
+      <h3 class="title van-ellipsis">{{ item.title }}</h3>
       <p class="tag">
-        <span># 肥胖</span>
-        <span># 养生</span>
+        <span v-for="(tag, i) in item.topics" :key="i"># {{ tag }}</span>
       </p>
-      <p class="intro van-multi-ellipsis--l2">
-        据估计，全世界有 10
-        亿人患有高血压，来自美国全国健康和营养调查的数据（NHANES）显示，高血压的患病率呈逐年上升趋势。
-        但是，我国高血压的控制程度非常不乐观，不少朋友担心降压药对肾的影响，有些甚至因为担心伤肾，而不敢吃降压药。
-        我们就介绍一下，高血压对肾脏的危害，还有降压药对肾脏影响。
-        没有耐心看的朋友，可以直接记住这个结论：高血压比降压药伤肾。千万不要因为担心副作用不敢吃药，那是「丢西瓜捡芝麻」得不偿失的行为
-      </p>
+      <p class="intro van-multi-ellipsis--l2">{{ item.content }}</p>
       <div class="imgs">
-        <van-image src="https://yanxuan-item.nosdn.127.net/c1cdf62c5908659a9e4c8c2f9df218fd.png" />
-        <van-image src="https://yanxuan-item.nosdn.127.net/c1cdf62c5908659a9e4c8c2f9df218fd.png" />
-        <van-image src="https://yanxuan-item.nosdn.127.net/c1cdf62c5908659a9e4c8c2f9df218fd.png" />
+        <van-image v-for="(url, i) in item.coverUrl" :key="i" :src="url" />
       </div>
       <p class="logs">
-        <span>10 收藏</span>
-        <span>50 评论</span>
+        <span>{{ item.collectionNumber }} 收藏</span>
+        <span>{{ item.commentNumber }} 评论</span>
       </p>
     </div>
   </div>
