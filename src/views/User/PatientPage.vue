@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { addPatient, getPatientList, updatePatient } from '@/services/user'
+import { addPatient, deletePatient, getPatientList, updatePatient } from '@/services/user'
 import type { Patient } from '@/types/user'
-import { Toast } from 'vant'
+import { Dialog, Toast } from 'vant'
 import { computed, onMounted, ref } from 'vue'
 import Validator from 'id-validator'
 
@@ -72,6 +72,23 @@ const submit = async () => {
 // 编辑操作
 // 1. 还是再同一个popup实现，只是改下标题，填充下表单
 // 2. 点击保存的时候，判断下当前是编辑还是添加，发不同的请求
+
+// 删除操作
+// 1. 准备一个删除按钮，只在编辑时显示
+// 2. 删除的API函数
+// 3. 确认框提示，点击确认，删除成功，关闭对话框 更新列表  提示
+const remove = async () => {
+  if (patient.value.id) {
+    await Dialog.confirm({
+      title: '温馨提示',
+      message: '您是否要删除该患者信息呢？'
+    })
+    await deletePatient(patient.value.id)
+    show.value = false
+    getList()
+    Toast.success('删除成功')
+  }
+}
 </script>
 
 <template>
@@ -117,6 +134,9 @@ const submit = async () => {
           </template>
         </van-field>
       </van-form>
+      <van-action-bar v-if="patient.id">
+        <van-action-bar-button @click="remove">删除</van-action-bar-button>
+      </van-action-bar>
     </van-popup>
   </div>
 </template>
@@ -131,6 +151,14 @@ const submit = async () => {
       padding-top: 46px;
       box-sizing: border-box;
     }
+  }
+}
+.van-action-bar {
+  padding: 0 10px;
+  margin-bottom: 10px;
+  .van-button {
+    color: var(--cp-price);
+    background-color: var(--cp-bg);
   }
 }
 .patient-list {

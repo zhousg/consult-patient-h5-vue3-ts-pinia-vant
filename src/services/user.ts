@@ -19,3 +19,5 @@ export const getPatientList = () => request<Patient[]>('patient/mylist')
 export const addPatient = (patient: Patient) => request('patient/add', 'POST', patient)
 
 export const updatePatient = (patient: Patient) => request('patient/update', 'PUT', patient)
+
+export const deletePatient = (id: string) => request(`patient/del/${id}`, 'DELETE')
