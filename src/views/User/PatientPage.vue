@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getPatientList } from '@/services/user'
+import { addPatient, getPatientList } from '@/services/user'
 import type { Patient } from '@/types/user'
 import { Toast } from 'vant'
 import { computed, onMounted, ref } from 'vue'
@@ -47,7 +47,7 @@ const defaultFlag = computed({
 })
 
 // 表单提交
-const submit = () => {
+const submit = async () => {
   if (!patient.value.name) return Toast('请输入姓名')
   if (!patient.value.idCard) return Toast('请输入身份证号')
   // 校验身份证号
@@ -55,6 +55,13 @@ const submit = () => {
   if (!validate.isValid(patient.value.idCard)) return Toast('身份证号不正确')
   const info = validate.getInfo(patient.value.idCard)
   if (info.sex !== patient.value.gender) return Toast('性别与身份证不符')
+
+  // 添加逻辑
+  await addPatient(patient.value)
+  // 成功
+  show.value = false
+  getList()
+  Toast.success('添加患者成功')
 }
 </script>
 

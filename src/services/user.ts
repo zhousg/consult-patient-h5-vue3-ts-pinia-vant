@@ -15,3 +15,5 @@ export const loginByCode = (mobile: string, code: string) =>
 export const getUserInfo = () => request<UserInfo>('patient/myUser')
 
 export const getPatientList = () => request<Patient[]>('patient/mylist')
+
+export const addPatient = (patient: Patient) => request('patient/add', 'POST', patient)
