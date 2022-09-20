@@ -59,6 +59,11 @@ const router = createRouter({
       path: '/consult/fast',
       component: () => import('@/views/Consult/ConsultFast.vue'),
       meta: { title: '极速问诊' }
+    },
+    {
+      path: '/consult/dep',
+      component: () => import('@/views/Consult/ConsultDep.vue'),
+      meta: { title: '选择科室' }
     }
   ]
 })
