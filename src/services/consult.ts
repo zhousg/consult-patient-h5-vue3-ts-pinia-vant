@@ -3,7 +3,8 @@ import type {
   FollowType,
   KnowledgePage,
   KnowledgeParams,
-  PageParams
+  PageParams,
+  TopDep
 } from '@/types/consult'
 import { request } from '@/utils/rquest'
 
@@ -15,3 +16,5 @@ export const getDoctorPage = (params: PageParams) =>
 
 export const followTarget = (id: string, type: FollowType = 'doc') =>
   request('like', 'POST', { id, type })
+
+export const getAllDep = () => request<TopDep[]>('dep/all')

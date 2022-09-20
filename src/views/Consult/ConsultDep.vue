@@ -1,8 +1,22 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { getAllDep } from '@/services/consult'
+import { useConsultStore } from '@/stores/consult'
+import type { TopDep } from '@/types/consult'
+import { computed, onMounted, ref } from 'vue'
 
 // 当前选择的sidebar-item索引
 const active = ref(0)
+// 1. 一级科室
+const allDep = ref<TopDep[]>([])
+onMounted(async () => {
+  const res = await getAllDep()
+  allDep.value = res.data
+})
+// 2.  二级科室 依赖  一级科室和当前激活的一级科室索引得到
+const subDep = computed(() => allDep.value[active.value]?.child)
+
+// 3. 记录科室ID
+const store = useConsultStore()
 </script>
 
 <template>
@@ -11,15 +25,18 @@ const active = ref(0)
     <div class="wrapper">
       <!-- 侧边栏组件 -->
       <van-sidebar v-model="active">
-        <van-sidebar-item title="标签名称" />
-        <van-sidebar-item title="标签名称" />
-        <van-sidebar-item title="标签名称" />
+        <van-sidebar-item v-for="item in allDep" :key="item.id" :title="item.name" />
       </van-sidebar>
       <!-- 二级科室 -->
       <div class="sub-dep">
-        <router-link to="/consult/illness">科室一</router-link>
-        <router-link to="/consult/illness">科室二</router-link>
-        <router-link to="/consult/illness">科室三</router-link>
+        <router-link
+          @click="store.setDep(sub.id)"
+          to="/consult/illness"
+          v-for="sub in subDep"
+          :key="sub.id"
+        >
+          {{ sub.name }}
+        </router-link>
       </div>
     </div>
   </div>

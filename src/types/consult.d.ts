@@ -98,3 +98,13 @@ export type PartialConsult = Partial<Consult>
 //   age?: number
 // }
 // type RequiredObj = Required<Obj>
+
+// 二级科室
+export type SubDep = {
+  id: string
+  name: string
+}
+// 一级科室
+export type TopDep = SubDep & {
+  child: SubDep[]
+}
