@@ -65,3 +65,6 @@ export type DoctorPage = {
   total: number
   rows: DoctorList
 }
+
+// 关注的类型
+export type FollowType = 'topic' | 'knowledge' | 'doc' | 'disease'
