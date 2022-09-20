@@ -1,5 +1,11 @@
 import { useUserStore } from '@/stores'
 import { createRouter, createWebHistory } from 'vue-router'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+
+NProgress.configure({
+  showSpinner: false
+})
 
 // 回顾：vue2的路由
 // 1. import VueRouter from 'vue-router'
@@ -54,14 +60,19 @@ const router = createRouter({
 
 // 访问权限控制
 router.beforeEach((to) => {
-  // 修改标题
-  document.title = `149优医问诊-${to.meta.title}`
+  NProgress.start()
   // 如果 return true 或啥也不写 就是放行
   // 拦截到某个页面，return '路由地址'
   const store = useUserStore()
   const whiteList = ['/login']
   // 需求：当你没有登录也就是没有token 且 你访问的不是登录页面  拦截到登录
   if (!store.user?.token && !whiteList.includes(to.path)) return '/login'
+})
+
+router.afterEach((to) => {
+  // 修改标题
+  document.title = `149优医问诊-${to.meta.title || ''}`
+  NProgress.done()
 })
 
 export default router

@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@rushstack/eslint-patch': ^1.1.4
   '@types/node': ^16.11.56
+  '@types/nprogress': ^0.2.0
   '@vitejs/plugin-vue': ^3.0.3
   '@vue/eslint-config-prettier': ^7.0.0
   '@vue/eslint-config-typescript': ^11.0.0
@@ -13,6 +14,7 @@ specifiers:
   eslint-plugin-vue: 9.4.0
   id-validator: ^1.3.0
   npm-run-all: ^4.1.5
+  nprogress: ^0.2.0
   pinia: ^2.0.21
   pinia-plugin-persistedstate: ^2.2.0
   postcss-px-to-viewport: ^1.1.1
@@ -31,6 +33,7 @@ dependencies:
   '@vueuse/core': 9.2.0_vue@3.2.39
   axios: 0.27.2
   id-validator: 1.3.0
+  nprogress: 0.2.0
   pinia: 2.0.22_uxrvejtcwrakwzzo6hlouuo2vq
   pinia-plugin-persistedstate: 2.2.0_pinia@2.0.22
   vant: 3.6.2_vue@3.2.39
@@ -40,6 +43,7 @@ dependencies:
 devDependencies:
   '@rushstack/eslint-patch': 1.1.4
   '@types/node': 16.11.59
+  '@types/nprogress': 0.2.0
   '@vitejs/plugin-vue': 3.1.0_vite@3.1.0+vue@3.2.39
   '@vue/eslint-config-prettier': 7.0.0_lpvhfrfofky3e6gkwtrv5gvhfa
   '@vue/eslint-config-typescript': 11.0.1_p7v5dgwyzwsdmsrdp4gvmonvnm
@@ -179,6 +183,10 @@ packages:
 
   /@types/node/16.11.59:
     resolution: {integrity: sha512-6u+36Dj3aDzhfBVUf/mfmc92OEdzQ2kx2jcXGdigfl70E/neV21ZHE6UCz4MDzTRcVqGAM27fk+DLXvyDsn3Jw==}
+    dev: true
+
+  /@types/nprogress/0.2.0:
+    resolution: {integrity: sha512-1cYJrqq9GezNFPsWTZpFut/d4CjpZqA0vhqDUPFWYKF1oIyBz5qnoYMzR+0C/T96t3ebLAC1SSnwrVOm5/j74A==}
     dev: true
 
   /@types/svgo/2.6.4:
@@ -2444,6 +2452,10 @@ packages:
       shell-quote: 1.7.3
       string.prototype.padend: 3.1.3
     dev: true
+
+  /nprogress/0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
+    dev: false
 
   /nth-check/2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
