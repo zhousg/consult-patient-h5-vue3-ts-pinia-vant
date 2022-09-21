@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import router from '@/router'
 import { createConsultOrder, getConsultOrderPre } from '@/services/consult'
 import { getPatientDetial } from '@/services/user'
 import { useConsultStore } from '@/stores/consult'
 import type { ConsultOrderPreData } from '@/types/consult'
 import type { Patient } from '@/types/user'
-import { Toast } from 'vant'
+import { Dialog, Toast } from 'vant'
 import { onMounted, ref } from 'vue'
+import { onBeforeRouteLeave } from 'vue-router'
 
 // 获取订单相关信息
 const store = useConsultStore()
@@ -51,6 +53,34 @@ const openSheet = async () => {
   // 展示抽屉
   show.value = true
 }
+
+// 进行支付
+// 1. 隐藏抽屉的关闭按钮
+// 2. 再关闭抽屉的时候，确认框提示，仍要关闭 问诊记录  继续支付 关闭确认框。
+// 3. 如果已经生成订单了回退的时候拦截
+// 4. 生成支付地址然后跳转：掉后台的接口
+// 5. 刷新页面的时候，判断是否问诊记录是否存在，不存在就alert提示，确认之后回到首页。
+const onClose = () => {
+  return Dialog.confirm({
+    title: '温馨提示',
+    message: '取消支付将无法获得医生回复，医生接诊名额有限，是否确认关闭？',
+    cancelButtonText: '仍要关闭',
+    confirmButtonText: '继续支付',
+    confirmButtonColor: 'var(--cp-primary)'
+  })
+    .then(() => {
+      // 不想关闭抽屉
+      return false
+    })
+    .catch(() => {
+      router.push('/user/consult')
+      return true
+    })
+}
+onBeforeRouteLeave(() => {
+  // 离开当前路由
+  if (orderId.value) return false
+})
 </script>
 
 <template>
@@ -89,7 +119,13 @@ const openSheet = async () => {
       :loading="loading"
     />
     <!-- 支付方式抽屉 -->
-    <van-action-sheet v-model:show="show" title="选择支付方式">
+    <van-action-sheet
+      v-model:show="show"
+      title="选择支付方式"
+      :closeable="false"
+      :before-close="onClose"
+      :close-on-popstate="false"
+    >
       <div class="pay-type">
         <p class="amount">￥{{ payInfo.actualPayment.toFixed(2) }}</p>
         <van-cell-group>
