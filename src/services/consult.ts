@@ -1,6 +1,7 @@
 import type {
   DoctorPage,
   FollowType,
+  Image,
   KnowledgePage,
   KnowledgeParams,
   PageParams,
@@ -18,3 +19,9 @@ export const followTarget = (id: string, type: FollowType = 'doc') =>
   request('like', 'POST', { id, type })
 
 export const getAllDep = () => request<TopDep[]>('dep/all')
+
+export const uploadImage = (file: File) => {
+  const fd = new FormData()
+  fd.append('file', file)
+  return request<Image>('upload', 'POST', fd)
+}

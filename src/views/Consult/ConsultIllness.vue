@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ConsultTime } from '@/enums'
+import { uploadImage } from '@/services/consult'
 import type { ConsultIllness } from '@/types/consult'
+import type { UploaderAfterRead, UploaderFileListItem } from 'vant/lib/uploader/types'
 import { ref } from 'vue'
 
 // 1. 表单需要依赖的数据
@@ -23,11 +25,32 @@ const consultFlagOptions = [
 
 // 2. 上传图片相关逻辑
 const fileList = ref([])
-const onAfterRead = () => {
+const onAfterRead: UploaderAfterRead = (item) => {
+  // 选择一个图就是 item  选择多个图就是 item[]，我们是一个图，而且file可能不存在
+  if (Array.isArray(item)) return
+  if (!item.file) return
   // 上传图片
+  item.status = 'uploading'
+  item.message = '上传中...'
+  uploadImage(item.file)
+    .then((res) => {
+      // 成功
+      item.status = 'done'
+      item.message = undefined
+      // 展示图片
+      item.url = res.data.url
+      // 存储到form中
+      form.value.pictures?.push(res.data)
+    })
+    .catch(() => {
+      // 失败
+      item.status = 'failed'
+      item.message = '上传失败'
+    })
 }
-const onDeleteImg = () => {
+const onDeleteImg = (item: UploaderFileListItem) => {
   // 删除图片
+  form.value.pictures = form.value.pictures?.filter((pic) => pic.url !== item.url)
 }
 </script>
 
@@ -69,7 +92,7 @@ const onDeleteImg = () => {
           @delete="onDeleteImg"
           v-model="fileList"
         ></van-uploader>
-        <p class="tip">上传内容仅医生可见,最多9张图,最大5MB</p>
+        <p class="tip" v-if="!fileList.length">上传内容仅医生可见,最多9张图,最大5MB</p>
       </div>
     </div>
   </div>
