@@ -88,6 +88,8 @@ const onClose = () => {
       return false
     })
     .catch(() => {
+      // 防止有orderId后，onBeforeRouteLeave 会拦截跳转
+      orderId.value = ''
       router.push('/user/consult')
       return true
     })
