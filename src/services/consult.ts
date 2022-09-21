@@ -5,7 +5,9 @@ import type {
   KnowledgePage,
   KnowledgeParams,
   PageParams,
-  TopDep
+  TopDep,
+  ConsultOrderPreParams,
+  ConsultOrderPreData
 } from '@/types/consult'
 import { request } from '@/utils/rquest'
 
@@ -25,3 +27,7 @@ export const uploadImage = (file: File) => {
   fd.append('file', file)
   return request<Image>('upload', 'POST', fd)
 }
+
+// 获取生成订单的信息，后台根据 问诊类型  和极速问诊的级别，确定一些金额。
+export const getConsultOrderPre = (params: ConsultOrderPreParams) =>
+  request<ConsultOrderPreData>('patient/consult/order/pre', 'GET', params)

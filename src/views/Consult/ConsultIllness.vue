@@ -28,6 +28,7 @@ const consultFlagOptions = [
 
 // 2. 上传图片相关逻辑
 const fileList = ref<Image[]>([])
+// 本地选择完成一张图片后执行
 const onAfterRead: UploaderAfterRead = (item) => {
   // 选择一个图就是 item  选择多个图就是 item[]，我们是一个图，而且file可能不存在
   if (Array.isArray(item)) return
