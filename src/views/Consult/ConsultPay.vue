@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import router from '@/router'
-import { createConsultOrder, getConsultOrderPre } from '@/services/consult'
+import { createConsultOrder, getConsultOrderPayUrl, getConsultOrderPre } from '@/services/consult'
 import { getPatientDetial } from '@/services/user'
 import { useConsultStore } from '@/stores/consult'
 import type { ConsultOrderPreData } from '@/types/consult'
@@ -30,6 +30,21 @@ const loadPatient = async () => {
   }
 }
 onMounted(() => {
+  // 判断是否没有了问诊信息（已经生成了订单，本地清空了）
+  if (
+    !store.consult.type ||
+    !store.consult.illnessType ||
+    !store.consult.depId ||
+    !store.consult.patientId
+  ) {
+    return Dialog.alert({
+      title: '温馨提示',
+      message: '问诊信息不完整请重新填写，如有未支付的问诊订单可在问诊记录中继续支付',
+      closeOnPopstate: false
+    }).then(() => {
+      router.push('/')
+    })
+  }
   loadPayInfo()
   loadPatient()
 })
@@ -81,6 +96,18 @@ onBeforeRouteLeave(() => {
   // 离开当前路由
   if (orderId.value) return false
 })
+const pay = async () => {
+  if (paymentMethod.value === undefined) return Toast('请选择支付方式')
+  Toast.loading('跳转支付')
+  if (orderId.value) {
+    const res = await getConsultOrderPayUrl({
+      paymentMethod: paymentMethod.value,
+      orderId: orderId.value,
+      payCallback: 'http://localhost:5173/room'
+    })
+    location.href = res.data.payUrl
+  }
+}
 </script>
 
 <template>
@@ -139,7 +166,7 @@ onBeforeRouteLeave(() => {
           </van-cell>
         </van-cell-group>
         <div class="btn">
-          <van-button type="primary" round block>立即支付</van-button>
+          <van-button type="primary" round block @click="pay">立即支付</van-button>
         </div>
       </div>
     </van-action-sheet>
