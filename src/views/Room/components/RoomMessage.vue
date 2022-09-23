@@ -30,6 +30,11 @@ const onPreviewImage = (pictures?: Image[]) => {
 
 const store = useUserStore()
 const formatTime = (time: string) => dayjs(time).format('HH:mm')
+
+// 图片加载成功
+const loadSuccess = () => {
+  window.scrollTo(0, document.body.scrollHeight)
+}
 </script>
 
 <template>
@@ -79,7 +84,7 @@ const formatTime = (time: string) => dayjs(time).format('HH:mm')
     <div class="msg msg-to" v-if="msgType === MsgType.MsgImage && from === store.user?.id">
       <div class="content">
         <div class="time">{{ formatTime(createTime) }}</div>
-        <van-image fit="contain" :src="msg.picture?.url" />
+        <van-image @load="loadSuccess" fit="contain" :src="msg.picture?.url" />
       </div>
       <van-image :src="store.user?.avatar" />
     </div>
@@ -96,7 +101,7 @@ const formatTime = (time: string) => dayjs(time).format('HH:mm')
       <van-image :src="fromAvatar" />
       <div class="content">
         <div class="time">{{ formatTime(createTime) }}</div>
-        <van-image fit="contain" :src="msg.picture?.url" />
+        <van-image @load="loadSuccess" fit="contain" :src="msg.picture?.url" />
       </div>
     </div>
     <!-- 处方消息 -->
