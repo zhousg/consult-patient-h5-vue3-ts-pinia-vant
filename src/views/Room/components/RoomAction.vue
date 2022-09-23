@@ -1,7 +1,21 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 defineProps<{
   disabled: boolean
 }>()
+
+// 一下代码是把输入内容提交给父组件
+const emit = defineEmits<{
+  (e: 'send-text', text: string): void
+}>()
+const text = ref('')
+const onSendText = () => {
+  if (text.value) {
+    emit('send-text', text.value)
+    text.value = ''
+  }
+}
 </script>
 
 <template>
@@ -13,6 +27,8 @@ defineProps<{
       :border="false"
       placeholder="问医生"
       autocomplete="off"
+      v-model="text"
+      @keyup.enter="onSendText"
     ></van-field>
     <!-- 不预览，使用小图标作为上传按钮 -->
     <van-uploader :preview-image="false" :disabled="disabled">
