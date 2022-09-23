@@ -10,7 +10,7 @@ import { useUserStore } from '@/stores'
 import { useRoute } from 'vue-router'
 import type { TimeMessages, Message } from '@/types/room'
 import { MsgType, OrderType } from '@/enums'
-import type { ConsultOrderItem } from '@/types/consult'
+import type { ConsultOrderItem, Image } from '@/types/consult'
 import { getConsultOrderDetail } from '@/services/consult'
 
 const store = useUserStore()
@@ -113,6 +113,21 @@ const sendText = (text: string) => {
     }
   })
 }
+
+// 发送图片信息
+// 1. 底部操作栏组件，上传图片，成功后传递给父组件（index.vue）组件 {id,url} 图片对象
+// 2. 由父组件来发送信息，通过emit发送消息 sendChatMsg
+// 3. 在渲染的时候，区分是自己还医生
+const sendImage = (img: Image) => {
+  socket.emit('sendChatMsg', {
+    from: store.user?.id,
+    to: consult.value?.docInfo?.id,
+    msgType: MsgType.MsgImage,
+    msg: {
+      picture: img
+    }
+  })
+}
 </script>
 
 <template>
@@ -122,6 +137,7 @@ const sendText = (text: string) => {
     <room-message :list="list"></room-message>
     <room-action
       @send-text="sendText"
+      @send-image="sendImage"
       :disabled="consult?.status !== OrderType.ConsultChat"
     ></room-action>
   </div>
