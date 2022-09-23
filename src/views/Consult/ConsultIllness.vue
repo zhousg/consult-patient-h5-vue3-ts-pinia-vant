@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ConsultTime } from '@/enums'
 import { uploadImage } from '@/services/consult'
 import { useConsultStore } from '@/stores/consult'
 import type { ConsultIllness, Image } from '@/types/consult'
@@ -7,6 +6,7 @@ import { Dialog, Toast } from 'vant'
 import type { UploaderAfterRead, UploaderFileListItem } from 'vant/lib/uploader/types'
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { illnessTimeOptions, consultFlagOptions } from '@/services/constants'
 
 // 1. 表单需要依赖的数据
 const form = ref<ConsultIllness>({
@@ -15,16 +15,6 @@ const form = ref<ConsultIllness>({
   consultFlag: undefined,
   pictures: []
 })
-const illnessTimeOptions = [
-  { label: '一周内', value: ConsultTime.Week },
-  { label: '一月内', value: ConsultTime.Month },
-  { label: '半年内', value: ConsultTime.HalfYear },
-  { label: '半年以上', value: ConsultTime.More }
-]
-const consultFlagOptions = [
-  { label: '就诊过', value: 1 },
-  { label: '没就诊过', value: 0 }
-]
 
 // 2. 上传图片相关逻辑
 const fileList = ref<Image[]>([])

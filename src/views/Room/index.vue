@@ -67,7 +67,6 @@ onMounted(() => {
     })
     // 将处理好的数据放置list中
     list.value.unshift(...arr)
-    console.log(list.value)
   })
 })
 </script>
@@ -76,7 +75,7 @@ onMounted(() => {
   <div class="room-page">
     <cp-nav-bar title="问诊室" />
     <room-status></room-status>
-    <room-message></room-message>
+    <room-message :list="list"></room-message>
     <room-action></room-action>
   </div>
 </template>
