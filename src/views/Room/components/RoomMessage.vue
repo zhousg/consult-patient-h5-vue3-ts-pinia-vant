@@ -4,6 +4,8 @@ import { ConsultTime, MsgType } from '@/enums'
 import { illnessTimeOptions, consultFlagOptions } from '@/services/constants'
 import type { Image } from '@/types/consult'
 import { ImagePreview } from 'vant'
+import { useUserStore } from '@/stores'
+import dayjs from 'dayjs'
 
 defineProps<{
   list: Message[]
@@ -24,10 +26,13 @@ const onPreviewImage = (pictures?: Image[]) => {
     ImagePreview(pictures.map((item) => item.url))
   }
 }
+
+const store = useUserStore()
+const formatTime = (time: string) => dayjs(time).format('HH:mm')
 </script>
 
 <template>
-  <template v-for="{ msgType, id, msg } in list" :key="id">
+  <template v-for="{ msgType, id, msg, from, createTime, fromAvatar } in list" :key="id">
     <!-- 病情描述 -->
     <div class="msg msg-illness" v-if="msgType === MsgType.CardPat">
       <div class="patient van-hairline--bottom">
@@ -62,13 +67,13 @@ const onPreviewImage = (pictures?: Image[]) => {
       </div>
     </div>
     <!-- 发消息-文字 -->
-    <!-- <div class="msg msg-to">
-    <div class="content">
-      <div class="time">20:12</div>
-      <div class="pao">大夫你好？</div>
+    <div class="msg msg-to" v-if="msgType === MsgType.MsgText && from === store.user?.id">
+      <div class="content">
+        <div class="time">{{ formatTime(createTime) }}</div>
+        <div class="pao">{{ msg.content }}</div>
+      </div>
+      <van-image :src="store.user?.avatar" />
     </div>
-    <van-image src="https://yjy-oss-files.oss-cn-zhangjiakou.aliyuncs.com/tuxian/popular_3.jpg" />
-  </div> -->
     <!-- 发消息-图片 -->
     <!-- <div class="msg msg-to">
     <div class="content">
@@ -81,13 +86,13 @@ const onPreviewImage = (pictures?: Image[]) => {
     <van-image src="https://yjy-oss-files.oss-cn-zhangjiakou.aliyuncs.com/tuxian/popular_3.jpg" />
   </div> -->
     <!-- 收消息-文字 -->
-    <!-- <div class="msg msg-from">
-    <van-image src="https://yjy-oss-files.oss-cn-zhangjiakou.aliyuncs.com/tuxian/popular_3.jpg" />
-    <div class="content">
-      <div class="time">20:12</div>
-      <div class="pao">哪里不舒服</div>
+    <div class="msg msg-from" v-if="msgType === MsgType.MsgText && from !== store.user?.id">
+      <van-image :src="fromAvatar" />
+      <div class="content">
+        <div class="time">{{ formatTime(createTime) }}</div>
+        <div class="pao">{{ msg.content }}</div>
+      </div>
     </div>
-  </div> -->
     <!-- 收消息-图片 -->
     <!-- <div class="msg msg-from">
     <van-image src="https://yjy-oss-files.oss-cn-zhangjiakou.aliyuncs.com/tuxian/popular_3.jpg" />
