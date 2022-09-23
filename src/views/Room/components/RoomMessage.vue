@@ -89,11 +89,12 @@
     </div>
   </div> -->
   <!-- 订单取消 -->
-  <div class="msg msg-tip msg-tip-cancel">
+  <!-- <div class="msg msg-tip msg-tip-cancel">
     <div class="content">
       <span>订单取消</span>
     </div>
-  </div>
+  </div> -->
+  <div>空</div>
 </template>
 
 <style lang="scss" scoped>

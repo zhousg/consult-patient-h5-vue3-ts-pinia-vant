@@ -16,6 +16,7 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.0.21",
     "pinia-plugin-persistedstate": "^2.2.0",
+    "socket.io-client": "^4.5.2",
     "vant": "^3.6.2",
     "vue": "^3.2.38",
     "vue-router": "^4.1.5"

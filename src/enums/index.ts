@@ -86,3 +86,35 @@ export enum ConsultTime {
   HalfYear,
   More
 }
+
+// 消息类型
+export enum MsgType {
+  // 文字
+  MsgText = 1,
+  // 图片
+  MsgImage = 4,
+  // 患者
+  CardPat = 21,
+  // 处方
+  CardPre = 22,
+  // 未评价
+  CardEvaForm = 23,
+  // 已评价
+  CardEva = 24,
+  // 通用系统
+  Notify = 31,
+  // 温馨提示
+  NotifyTip = 32,
+  // 取消订单
+  NotifyCancel = 33
+}
+
+// 处方状态
+export enum PrescriptionStatus {
+  // 未支付
+  NotPayment = 1,
+  // 已支付
+  Payment = 2,
+  // 无效
+  Invalid = 3
+}
