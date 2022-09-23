@@ -9,7 +9,7 @@ import { baseURL } from '@/utils/rquest'
 import { useUserStore } from '@/stores'
 import { useRoute } from 'vue-router'
 import type { TimeMessages, Message } from '@/types/room'
-import { MsgType } from '@/enums'
+import { MsgType, OrderType } from '@/enums'
 import type { ConsultOrderItem } from '@/types/consult'
 import { getConsultOrderDetail } from '@/services/consult'
 
@@ -70,6 +70,11 @@ onMounted(() => {
     // 将处理好的数据放置list中
     list.value.unshift(...arr)
   })
+  // 等链接成功之后，注册事件，订单状态变更
+  socket.on('statusChange', async () => {
+    const res = await getConsultOrderDetail(route.query.orderId as string)
+    consult.value = res.data
+  })
 })
 
 // 接诊状态的控制：（订单详情）
@@ -88,9 +93,9 @@ onMounted(async () => {
 <template>
   <div class="room-page">
     <cp-nav-bar title="问诊室" />
-    <room-status></room-status>
+    <room-status :status="consult?.status" :countdown="consult?.countdown"></room-status>
     <room-message :list="list"></room-message>
-    <room-action></room-action>
+    <room-action :disabled="consult?.status !== OrderType.ConsultChat"></room-action>
   </div>
 </template>
 
