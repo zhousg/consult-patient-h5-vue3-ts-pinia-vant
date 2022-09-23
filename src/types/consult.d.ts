@@ -1,4 +1,4 @@
-import type { ConsultTime, ConsultType } from '@/enums'
+import type { ConsultTime, ConsultType, OrderType } from '@/enums'
 
 // 文章类型
 export type KnowledgeType = 'like' | 'recommend' | 'fatReduction' | 'food'
@@ -123,5 +123,37 @@ export type ConsultOrderPreData = {
   couponDeduction: number
   couponId: string
   payment: number
+  actualPayment: number
+}
+
+// 问诊订单单项信息
+export type ConsultOrderItem = Consult & {
+  // 订单创建时间
+  createTime: string
+  // 接诊医生信息
+  docInfo?: Doctor
+  // 患者信息
+  patientInfo: Patient
+  // 订单编号
+  orderNo: string
+  // 订单状态-文字
+  statusValue: string
+  // 订单类型
+  typeValue: string
+  // 状态状态
+  status: OrderType
+  // 倒计时时间
+  countdown: number
+  // 处方ID
+  prescriptionId?: string
+  // 评价ID
+  evaluateId: number
+  // 付款
+  payment: number
+  // 优惠金额
+  couponDeduction: number
+  // 抵扣金额
+  pointDeduction: number
+  // 实付款
   actualPayment: number
 }
