@@ -161,11 +161,11 @@ const buy = (pre?: Prescription) => {
       </div>
     </div>
     <!-- 订单取消 -->
-    <!-- <div class="msg msg-tip msg-tip-cancel">
-    <div class="content">
-      <span>订单取消</span>
+    <div class="msg msg-tip msg-tip-cancel" v-if="msgType === MsgType.NotifyCancel">
+      <div class="content">
+        <span>{{ msg.content }}</span>
+      </div>
     </div>
-  </div> -->
     <div class="msg" v-if="msgType === MsgType.CardEva || msgType === MsgType.CardEvaForm">
       <evaluate-card :evaluateDoc="msg.evaluateDoc"></evaluate-card>
     </div>

@@ -179,6 +179,15 @@ const onRefresh = () => {
 // 3.2. 无数据，绑定表单数据，收集表单数据，提交评价
 // 3.3. 评价成功，修改评价消息状态和数据，切换卡片展示
 provide('consult', consult)
+const completeEva = (score: number) => {
+  // 加评价对象只需要一个数据 score
+  const item = list.value.find((item) => item.msgType === MsgType.CardEvaForm)
+  if (item) {
+    item.msg.evaluateDoc = { score }
+    item.msgType = MsgType.CardEva
+  }
+}
+provide('completeEva', completeEva)
 </script>
 
 <template>
