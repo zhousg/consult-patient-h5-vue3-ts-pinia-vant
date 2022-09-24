@@ -1,10 +1,27 @@
 <script setup lang="ts">
 import { OrderType } from '@/enums'
 import type { ConsultOrderItem } from '@/types/consult'
+import { computed, ref } from 'vue'
 
-defineProps<{
+const props = defineProps<{
   item: ConsultOrderItem
 }>()
+
+// body区域，点击后去订单详细
+// foot区域，根据订单状态展示按钮
+// 待支付：取消问诊+去支付
+// 待接诊：取消问诊+继续沟通
+// 咨询中：查看处方（如果开了）+继续沟通
+// 已完成：更多（查看处方，如果开了，删除订单）+问诊记录+（未评价?写评价:查看评价）
+// 已取消：删除订单+咨询其他医生
+const showPopover = ref(false)
+const actions = computed(() => [
+  { text: '查看处方', disabled: !props.item.prescriptionId },
+  { text: '删除订单' }
+])
+const onSelect = () => {
+  // 点击选项
+}
 </script>
 
 <template>
@@ -20,7 +37,7 @@ defineProps<{
         >{{ item.statusValue }}</span
       >
     </div>
-    <div class="body">
+    <div class="body" @click="$router.push(`/user/consult/${item.id}`)">
       <div class="body-row">
         <div class="body-label">病情描述</div>
         <div class="body-value">{{ item.illnessDesc }}</div>
@@ -34,9 +51,48 @@ defineProps<{
         <div class="body-value tip">{{ item.createTime }}</div>
       </div>
     </div>
-    <div class="foot">
+    <div class="foot" v-if="item.status === OrderType.ConsultPay">
       <van-button class="gray" plain size="small" round>取消问诊</van-button>
-      <van-button type="primary" plain size="small" round>去支付</van-button>
+      <van-button type="primary" plain size="small" round :to="`/user/consult/${item.id}`">
+        去支付
+      </van-button>
+    </div>
+    <div class="foot" v-if="item.status === OrderType.ConsultWait">
+      <van-button class="gray" plain size="small" round>取消问诊</van-button>
+      <van-button type="primary" plain size="small" round :to="`/room?orderId=${item.id}`">
+        继续沟通
+      </van-button>
+    </div>
+    <div class="foot" v-if="item.status === OrderType.ConsultChat">
+      <van-button class="gray" plain size="small" round v-if="item.prescriptionId">
+        查看处方
+      </van-button>
+      <van-button type="primary" plain size="small" round :to="`/room?orderId=${item.id}`">
+        继续沟通
+      </van-button>
+    </div>
+    <div class="foot" v-if="item.status === OrderType.ConsultComplete">
+      <div class="more">
+        <van-popover
+          v-model:show="showPopover"
+          :actions="actions"
+          @select="onSelect"
+          placement="top-start"
+        >
+          <template #reference> 更多 </template>
+        </van-popover>
+      </div>
+      <van-button class="gray" plain size="small" round :to="`/room?orderId=${item.id}`">
+        问诊记录
+      </van-button>
+      <van-button v-if="!item.evaluateId" type="primary" plain size="small" round>
+        写评价
+      </van-button>
+      <van-button v-else class="gray" plain size="small" round> 查看评价 </van-button>
+    </div>
+    <div class="foot" v-if="item.status === OrderType.ConsultCancel">
+      <van-button class="gray" plain size="small" round>删除订单</van-button>
+      <van-button type="primary" plain size="small" round to="/"> 咨询其他医生 </van-button>
     </div>
   </div>
 </template>
