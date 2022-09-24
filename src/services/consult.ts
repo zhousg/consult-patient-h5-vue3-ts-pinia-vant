@@ -48,3 +48,7 @@ export const getConsultOrderPayUrl = (data: {
 // 订单详情
 export const getConsultOrderDetail = (orderId: string) =>
   request<ConsultOrderItem>('patient/consult/order/detail', 'GET', { orderId })
+
+// 查看处方
+export const getPrescriptionPic = (id: string) =>
+  request<{ url: string }>(`patient/consult/prescription/${id}`)
