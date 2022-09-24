@@ -29,19 +29,17 @@ const onSelect = () => {
 const loading = ref(false)
 const onCancelOrder = async (item: ConsultOrderItem) => {
   loading.value = true
-  await cancelOrder(item.id)
-    .then(() => {
-      // 修改订单的状态
-      item.status = OrderType.ConsultCancel
-      item.statusValue = '已取消'
-      Toast.success('取消成功')
-    })
-    .catch(() => {
-      Toast.fail('取消失败')
-    })
-    .finally(() => {
-      loading.value = false
-    })
+  try {
+    await cancelOrder(item.id)
+    // 修改订单的状态
+    item.status = OrderType.ConsultCancel
+    item.statusValue = '已取消'
+    Toast.success('取消成功')
+  } catch (e) {
+    Toast.fail('取消失败')
+  } finally {
+    loading.value = false
+  }
 }
 </script>
 
