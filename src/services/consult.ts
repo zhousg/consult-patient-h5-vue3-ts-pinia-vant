@@ -66,4 +66,4 @@ export const evaluateConsultOrder = (data: {
 
 // 问诊记录分页查询
 export const getConsultOrderList = (params: ConsultOrderParams) =>
-  request<ConsultOrderPage>('consult/order/list', 'GET', params)
+  request<ConsultOrderPage>('patient/consult/order/list', 'GET', params)
