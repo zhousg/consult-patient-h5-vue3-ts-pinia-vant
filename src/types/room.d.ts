@@ -70,7 +70,7 @@ export type Message = {
 // 消息分组
 export type TimeMessages = {
   createTime: string
-  items: RoomMessage[]
+  items: Message[]
   orderId: string
   sid: string
 }
