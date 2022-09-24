@@ -88,6 +88,8 @@ onMounted(() => {
     // 第一次需要滚动到最底部
     nextTick(() => {
       if (initialMsg.value) {
+        // 把默认加载到的消息全部改成了已读
+        socket.emit('updateMsgStatus', arr[arr.length - 1].id)
         window.scrollTo(0, document.body.scrollHeight)
         initialMsg.value = false
       }
@@ -103,6 +105,8 @@ onMounted(() => {
     list.value.push(msg)
     // 是一个promise，等下一帧在执行（等DOM渲染完）
     await nextTick()
+    // 修改消息未已读
+    socket.emit('updateMsgStatus', msg.id)
     // 滚动到最底部
     window.scrollTo(0, document.body.scrollHeight)
   })
