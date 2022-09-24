@@ -2,6 +2,7 @@
 import { evaluateConsultOrder } from '@/services/consult'
 import type { ConsultOrderItem } from '@/types/consult'
 import type { EvaluateDoc } from '@/types/room'
+import { Socket } from 'socket.io-client'
 import { Toast } from 'vant'
 import { computed, inject, ref, type Ref } from 'vue'
 
@@ -33,6 +34,10 @@ const submit = async () => {
     })
     // 评价请求成功，改成已评价
     completeEva && completeEva(score.value)
+    // ===
+    // if (completeEva) {
+    //   completeEva(score.value)
+    // }
   }
 }
 </script>
