@@ -12,6 +12,8 @@ import type { TimeMessages, Message } from '@/types/room'
 import { MsgType, OrderType } from '@/enums'
 import type { ConsultOrderItem, Image } from '@/types/consult'
 import { getConsultOrderDetail } from '@/services/consult'
+import dayjs from 'dayjs'
+import { Toast } from 'vant'
 
 const store = useUserStore()
 const route = useRoute()
@@ -38,6 +40,8 @@ onMounted(() => {
   })
   // 连接成功，connect 固定写法
   socket.on('connect', () => {
+    // 默认一个空的聊天数组
+    list.value = []
     console.log('连接成功')
   })
   // 关闭连接
@@ -56,7 +60,9 @@ onMounted(() => {
   socket.on('chatMsgList', ({ data }: { data: TimeMessages[] }) => {
     // 处理消息：分组的时间自己组织成一条通用消息，items取出来放后面
     const arr: Message[] = []
-    data.forEach((item) => {
+    data.forEach((item, i) => {
+      // 记录消息分组第一组的时间，作为下次获取聊天记录的时间
+      if (i === 0) time.value = item.createTime
       arr.push({
         id: item.createTime,
         msgType: MsgType.Notify,
@@ -69,6 +75,20 @@ onMounted(() => {
     })
     // 将处理好的数据放置list中
     list.value.unshift(...arr)
+
+    // 关闭刷新效果
+    loading.value = false
+    if (!data.length) {
+      Toast('没有聊天记录了')
+    }
+
+    // 第一次需要滚动到最底部
+    nextTick(() => {
+      if (initialMsg.value) {
+        window.scrollTo(0, document.body.scrollHeight)
+        initialMsg.value = false
+      }
+    })
   })
   // 等链接成功之后，注册事件，订单状态变更
   socket.on('statusChange', async () => {
@@ -128,13 +148,30 @@ const sendImage = (img: Image) => {
     }
   })
 }
+
+// 加载更多聊天记录
+// 1. 默认的聊天记录滚动到最底部，第二次，第三次，....  不需要滚动底部
+// 2. 实现下拉刷新效果
+// 3. 下拉刷新后，发送一个获取聊天记录的消息给后台
+// 4. 触发聊天记录事件，记录当前时间段最早的时间，作为发送聊天记录消息的参数给后台
+// 4.1 判断如果有数据，追加到数组，如果没有数据，轻提示没有数据
+// 5. 再次连接socket的时候，需要清空聊天记录。
+const initialMsg = ref(true)
+const loading = ref(false)
+// 初始化值是当前时间 YYYY-MM-DD HH:mm:ss
+const time = ref(dayjs().format('YYY-MM-DD HH:mm:ss'))
+const onRefresh = () => {
+  socket.emit('getChatMsgList', 20, time.value, consult.value?.id)
+}
 </script>
 
 <template>
   <div class="room-page">
     <cp-nav-bar title="问诊室" />
     <room-status :status="consult?.status" :countdown="consult?.countdown"></room-status>
-    <room-message :list="list"></room-message>
+    <van-pull-refresh v-model="loading" @refresh="onRefresh">
+      <room-message :list="list"></room-message>
+    </van-pull-refresh>
     <room-action
       @send-text="sendText"
       @send-image="sendImage"

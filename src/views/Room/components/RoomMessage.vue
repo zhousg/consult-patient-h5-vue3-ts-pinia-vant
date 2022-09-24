@@ -6,7 +6,6 @@ import type { Image } from '@/types/consult'
 import { ImagePreview } from 'vant'
 import { useUserStore } from '@/stores'
 import dayjs from 'dayjs'
-import { nextTick } from 'vue'
 
 defineProps<{
   list: Message[]
