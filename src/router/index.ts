@@ -79,6 +79,11 @@ const router = createRouter({
       path: '/room',
       component: () => import('@/views/Room/index.vue'),
       meta: { title: '问诊室' }
+    },
+    {
+      path: '/user/consult',
+      component: () => import('@/views/User/ConsultPage.vue'),
+      meta: { title: '问诊记录' }
     }
   ]
 })
