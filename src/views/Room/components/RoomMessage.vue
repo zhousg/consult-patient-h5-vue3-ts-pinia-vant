@@ -8,6 +8,7 @@ import { useUserStore } from '@/stores'
 import dayjs from 'dayjs'
 import { getPrescriptionPic } from '@/services/consult'
 import { useRouter } from 'vue-router'
+import EvaluateCard from './EvaluateCard.vue'
 
 defineProps<{
   list: Message[]
@@ -165,6 +166,9 @@ const buy = (pre?: Prescription) => {
       <span>订单取消</span>
     </div>
   </div> -->
+    <div class="msg" v-if="msgType === MsgType.CardEva || msgType === MsgType.CardEvaForm">
+      <evaluate-card :evaluateDoc="msg.evaluateDoc"></evaluate-card>
+    </div>
   </template>
 </template>
 
