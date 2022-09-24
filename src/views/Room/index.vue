@@ -71,7 +71,10 @@ onMounted(() => {
           content: item.createTime
         }
       })
-      arr.push(...item.items)
+      // arr.push(...item.items)
+      item.items.forEach((item) => {
+        arr.push({ ...item, notScroll: initialMsg.value === false })
+      })
     })
     // 将处理好的数据放置list中
     list.value.unshift(...arr)

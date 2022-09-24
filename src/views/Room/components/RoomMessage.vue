@@ -31,13 +31,15 @@ const store = useUserStore()
 const formatTime = (time: string) => dayjs(time).format('HH:mm')
 
 // 图片加载成功
-const loadSuccess = () => {
+const loadSuccess = (notScroll?: boolean) => {
+  // 判断是聊天记录的图片，那就不去滚动
+  if (notScroll === true) return
   window.scrollTo(0, document.body.scrollHeight)
 }
 </script>
 
 <template>
-  <template v-for="{ msgType, id, msg, from, createTime, fromAvatar } in list" :key="id">
+  <template v-for="{ msgType, id, msg, from, createTime, fromAvatar, notScroll } in list" :key="id">
     <!-- 病情描述 -->
     <div class="msg msg-illness" v-if="msgType === MsgType.CardPat">
       <div class="patient van-hairline--bottom">
@@ -83,7 +85,7 @@ const loadSuccess = () => {
     <div class="msg msg-to" v-if="msgType === MsgType.MsgImage && from === store.user?.id">
       <div class="content">
         <div class="time">{{ formatTime(createTime) }}</div>
-        <van-image @load="loadSuccess" fit="contain" :src="msg.picture?.url" />
+        <van-image @load="loadSuccess(notScroll)" fit="contain" :src="msg.picture?.url" />
       </div>
       <van-image :src="store.user?.avatar" />
     </div>
@@ -100,7 +102,7 @@ const loadSuccess = () => {
       <van-image :src="fromAvatar" />
       <div class="content">
         <div class="time">{{ formatTime(createTime) }}</div>
-        <van-image @load="loadSuccess" fit="contain" :src="msg.picture?.url" />
+        <van-image @load="loadSuccess(notScroll)" fit="contain" :src="msg.picture?.url" />
       </div>
     </div>
     <!-- 处方消息 -->
