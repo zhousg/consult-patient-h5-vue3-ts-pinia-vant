@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { AddressItem, OrderPre } from '@/types/order'
 import { onMounted, ref } from 'vue'
-import { getAddressList, getMedicalOrderPre } from '@/services/order'
+import { createMedicalOrder, getAddressList, getMedicalOrderPre } from '@/services/order'
 import { useRoute } from 'vue-router'
+import { Toast } from 'vant'
 
 const route = useRoute()
 
@@ -21,6 +22,32 @@ onMounted(async () => {
     else address.value = addRes.data[0]
   }
 })
+
+// 支付函数
+const orderId = ref('')
+const loading = ref(false)
+const agree = ref(false)
+const show = ref(false)
+const pay = async () => {
+  if (!agree.value) return Toast('请同意支付协议')
+  if (!address.value?.id) return Toast('请选择收货地址')
+  if (!orderPre.value?.id) return Toast('没有处方ID')
+  loading.value = true
+  try {
+    // 如果处方ID不变，再次生成的订单是同一个订单
+    const res = await createMedicalOrder({
+      id: orderPre.value.id,
+      addressId: address.value.id,
+      couponId: orderPre.value.couponId
+    })
+    orderId.value = res.data.id
+    loading.value = false
+    // 打开支付抽屉
+    show.value = true
+  } catch (e) {
+    loading.value = false
+  }
+}
 </script>
 
 <template>
@@ -54,7 +81,7 @@ onMounted(async () => {
           </p>
           <p class="price">￥{{ med.amount }}</p>
         </div>
-        <div class="desc">{{ med.usageDosag }}</div>
+        <div class="desc" v-if="med.usageDosag">{{ med.usageDosag }}</div>
       </div>
     </div>
     <div class="order-detail">
@@ -70,14 +97,28 @@ onMounted(async () => {
         由于药品的特殊性，如非错发、漏发药品的情况，药品一经发出
         不得退换，请核对药品信息无误后下单。
       </p>
-      <van-checkbox>我已同意<a href="javascript:;">支付协议</a></van-checkbox>
+      <van-checkbox v-model="agree">我已同意<a href="javascript:;">支付协议</a></van-checkbox>
     </div>
     <van-submit-bar
       :price="orderPre.actualPayment * 100"
       button-text="立即支付"
       button-type="primary"
       text-align="left"
+      @click="pay"
+      :loading="loading"
     ></van-submit-bar>
+    <cp-pay-sheet
+      :actual-payment="orderPre.actualPayment"
+      v-model:show="show"
+      :order-id="orderId"
+      pay-callback="http://localhost:5173/order/pay/result"
+    ></cp-pay-sheet>
+  </div>
+  <div class="order-pay-page" v-else>
+    <cp-nav-bar title="药品支付" />
+    <van-skeleton title :row="4" style="margin-top: 30px" />
+    <van-skeleton title :row="4" style="margin-top: 30px" />
+    <van-skeleton title :row="4" style="margin-top: 30px" />
   </div>
 </template>
 

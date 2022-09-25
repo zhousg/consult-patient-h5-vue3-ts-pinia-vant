@@ -153,6 +153,7 @@ onBeforeRouteLeave(() => {
       :orderId="orderId"
       v-model:show="show"
       :onClose="onClose"
+      pay-callback="http://localhost:5173/room"
     ></cp-pay-sheet>
   </div>
   <div class="consult-pay-page" v-else>
