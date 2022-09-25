@@ -36,6 +36,13 @@ const onLoad = async () => {
     finished.value = true
   }
 }
+
+// 删除一条订单
+const onDelete = (id: string) => {
+  // const index = list.value.find((item) => item.id === id)
+  // list.value.splice(index, 1)
+  list.value = list.value.filter((item) => item.id !== id)
+}
 </script>
 
 <template>
@@ -46,7 +53,12 @@ const onLoad = async () => {
       finished-text="没有更多了"
       @load="onLoad"
     >
-      <consult-item v-for="item in list" :key="item.id" :item="item" />
+      <consult-item
+        @on-delete="onDelete"
+        v-for="item in list"
+        :key="item.id"
+        :item="item"
+      ></consult-item>
     </van-list>
   </div>
 </template>
