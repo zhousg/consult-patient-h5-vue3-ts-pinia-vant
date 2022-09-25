@@ -3,7 +3,7 @@ import { useCancelOrder, useDeleteOrder, useShowPrescription } from '@/composabl
 import { OrderType } from '@/enums'
 import type { ConsultOrderItem } from '@/types/consult'
 
-defineProps<{
+const props = defineProps<{
   item: ConsultOrderItem
 }>()
 
@@ -52,8 +52,8 @@ const { loading, onCancelOrder } = useCancelOrder()
 const emit = defineEmits<{
   (e: 'on-delete', id: string): void
 }>()
-const { loading: deleteLoading, deleteConsultOrder } = useDeleteOrder((id) => {
-  emit('on-delete', id)
+const { loading: deleteLoading, deleteConsultOrder } = useDeleteOrder(() => {
+  emit('on-delete', props.item.id)
 })
 // const deleteLoading = ref(false)
 // const deleteConsulOrder = async (item: ConsultOrderItem) => {

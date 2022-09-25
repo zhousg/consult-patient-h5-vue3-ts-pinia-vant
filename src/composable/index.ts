@@ -65,7 +65,7 @@ export const useCancelOrder = () => {
 }
 
 // 删除订单，删除成功做的事不确定，可以通过传入函数实现。
-export const useDeleteOrder = (cb: (id: string) => void) => {
+export const useDeleteOrder = (cb: () => void) => {
   const loading = ref(false)
   const deleteConsultOrder = async (item: ConsultOrderItem) => {
     loading.value = true
@@ -73,7 +73,7 @@ export const useDeleteOrder = (cb: (id: string) => void) => {
       await deleteOrder(item.id)
       // 成功，通知父组件删除这条信息，提示，详情就是跳转列表页面
       Toast.success('删除成功')
-      cb && cb(item.id)
+      cb && cb()
     } catch (e) {
       Toast.fail('删除失败')
     } finally {
