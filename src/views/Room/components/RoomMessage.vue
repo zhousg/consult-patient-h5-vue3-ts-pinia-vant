@@ -6,9 +6,9 @@ import type { Image } from '@/types/consult'
 import { ImagePreview, Toast } from 'vant'
 import { useUserStore } from '@/stores'
 import dayjs from 'dayjs'
-import { getPrescriptionPic } from '@/services/consult'
 import { useRouter } from 'vue-router'
 import EvaluateCard from './EvaluateCard.vue'
+import { useShowPrescription } from '@/composable'
 
 defineProps<{
   list: Message[]
@@ -41,12 +41,7 @@ const loadSuccess = (notScroll?: boolean) => {
 }
 
 // 查看处方
-const showPrescription = async (id?: string) => {
-  if (id) {
-    const res = await getPrescriptionPic(id)
-    ImagePreview([res.data.url])
-  }
-}
+const { showPrescription } = useShowPrescription()
 
 // 去买药
 const router = useRouter()

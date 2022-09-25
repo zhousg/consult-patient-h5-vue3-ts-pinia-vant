@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useShowPrescription } from '@/composable'
 import { OrderType } from '@/enums'
 import { cancelOrder, deleteOrder } from '@/services/consult'
 import type { ConsultOrderItem } from '@/types/consult'
@@ -25,6 +26,9 @@ const onSelect = (action: { text: string }, i: number) => {
   // 点击选项
   if (i === 1) {
     deleteConsulOrder(props.item)
+  }
+  if (i === 0) {
+    showPrescription(props.item.prescriptionId)
   }
 }
 
@@ -64,6 +68,9 @@ const deleteConsulOrder = async (item: ConsultOrderItem) => {
     deleteLoading.value = false
   }
 }
+
+// 查看处方
+const { showPrescription } = useShowPrescription()
 </script>
 
 <template>

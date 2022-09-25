@@ -1,6 +1,7 @@
 import type { FollowType } from '@/types/consult'
-import { followTarget } from '@/services/consult'
+import { followTarget, getPrescriptionPic } from '@/services/consult'
 import { ref } from 'vue'
+import { ImagePreview } from 'vant'
 
 export const useFollow = (type: FollowType = 'doc') => {
   // 关注逻辑
@@ -30,3 +31,14 @@ export const useFollow = (type: FollowType = 'doc') => {
 // }
 
 // fn(obj)
+
+export const useShowPrescription = () => {
+  // 查看处方
+  const showPrescription = async (id?: string) => {
+    if (id) {
+      const res = await getPrescriptionPic(id)
+      ImagePreview([res.data.url])
+    }
+  }
+  return { showPrescription }
+}
