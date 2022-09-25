@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useShowPrescription } from '@/composable'
+import { useCancelOrder, useShowPrescription } from '@/composable'
 import { OrderType } from '@/enums'
-import { cancelOrder, deleteOrder } from '@/services/consult'
+import { deleteOrder } from '@/services/consult'
 import type { ConsultOrderItem } from '@/types/consult'
 import { Toast } from 'vant'
 import { ref } from 'vue'
@@ -33,21 +33,22 @@ defineProps<{
 // }
 
 // 取消订单
-const loading = ref(false)
-const onCancelOrder = async (item: ConsultOrderItem) => {
-  loading.value = true
-  try {
-    await cancelOrder(item.id)
-    // 修改订单的状态
-    item.status = OrderType.ConsultCancel
-    item.statusValue = '已取消'
-    Toast.success('取消成功')
-  } catch (e) {
-    Toast.fail('取消失败')
-  } finally {
-    loading.value = false
-  }
-}
+// const loading = ref(false)
+// const onCancelOrder = async (item: ConsultOrderItem) => {
+//   loading.value = true
+//   try {
+//     await cancelOrder(item.id)
+//     // 修改订单的状态
+//     item.status = OrderType.ConsultCancel
+//     item.statusValue = '已取消'
+//     Toast.success('取消成功')
+//   } catch (e) {
+//     Toast.fail('取消失败')
+//   } finally {
+//     loading.value = false
+//   }
+// }
+const { loading, onCancelOrder } = useCancelOrder()
 
 // 删除订单
 // 加载效果，API函数，点击调用

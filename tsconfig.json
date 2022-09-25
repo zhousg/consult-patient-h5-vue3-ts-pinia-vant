@@ -6,9 +6,7 @@
     "paths": {
       "@/*": ["./src/*"]
     }
-    // "lib": [      "ES2018",
-    // "DOM",
-    // "DOM.Iterable"]
+    // "lib": ["ES2018","DOM", "DOM.Iterable"]
   },
 
   "references": [

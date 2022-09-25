@@ -1,7 +1,8 @@
-import type { FollowType } from '@/types/consult'
-import { followTarget, getPrescriptionPic } from '@/services/consult'
+import type { ConsultOrderItem, FollowType } from '@/types/consult'
+import { cancelOrder, followTarget, getPrescriptionPic } from '@/services/consult'
 import { ref } from 'vue'
-import { ImagePreview } from 'vant'
+import { ImagePreview, Toast } from 'vant'
+import { OrderType } from '@/enums'
 
 export const useFollow = (type: FollowType = 'doc') => {
   // 关注逻辑
@@ -41,4 +42,24 @@ export const useShowPrescription = () => {
     }
   }
   return { showPrescription }
+}
+
+// 取消订单
+export const useCancelOrder = () => {
+  const loading = ref(false)
+  const onCancelOrder = async (item: ConsultOrderItem) => {
+    loading.value = true
+    try {
+      await cancelOrder(item.id)
+      // 修改订单的状态
+      item.status = OrderType.ConsultCancel
+      item.statusValue = '已取消'
+      Toast.success('取消成功')
+    } catch (e) {
+      Toast.fail('取消失败')
+    } finally {
+      loading.value = false
+    }
+  }
+  return { loading, onCancelOrder }
 }
