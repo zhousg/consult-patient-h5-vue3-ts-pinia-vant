@@ -2,10 +2,12 @@
 import { OrderType } from '@/enums'
 import { getConsultOrderDetail } from '@/services/consult'
 import type { ConsultOrderItem } from '@/types/consult'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getIllnessTimeText, getConsultFlagText } from '@/utils/filter'
 import { useCancelOrder, useDeleteOrder, useShowPrescription } from '@/composable'
+import { useClipboard } from '@vueuse/core'
+import { Toast } from 'vant'
 
 const route = useRoute()
 const router = useRouter()
@@ -24,6 +26,19 @@ const { loading: deleteLoading, deleteConsultOrder } = useDeleteOrder(() => {
 })
 // 查看处方
 const { showPrescription } = useShowPrescription()
+
+// 复制功能
+// 1. 从vueuse得到数据和函数
+const { copy, copied, isSupported } = useClipboard()
+// 2. 点击复制按钮，复制订单编号
+const onCopy = () => {
+  if (!isSupported.value) return Toast('不支持，或未授权')
+  copy(item.value?.orderNo as string)
+}
+// 3. 复制后提示
+watch(copied, () => {
+  if (copied.value) Toast('已复制')
+})
 </script>
 
 <template>
@@ -67,7 +82,7 @@ const { showPrescription } = useShowPrescription()
       <van-cell-group :border="false">
         <van-cell title="订单编号">
           <template #value>
-            <span class="copy">复制</span>
+            <span class="copy" @click="onCopy">复制</span>
             {{ item.orderNo }}
           </template>
         </van-cell>
