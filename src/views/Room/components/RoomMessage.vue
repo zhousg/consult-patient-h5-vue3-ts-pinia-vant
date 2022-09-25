@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Message, Prescription } from '@/types/room'
-import { ConsultTime, MsgType, PrescriptionStatus } from '@/enums'
-import { illnessTimeOptions, consultFlagOptions } from '@/services/constants'
+import { MsgType, PrescriptionStatus } from '@/enums'
 import type { Image } from '@/types/consult'
 import { ImagePreview, Toast } from 'vant'
 import { useUserStore } from '@/stores'
@@ -9,19 +8,12 @@ import dayjs from 'dayjs'
 import { useRouter } from 'vue-router'
 import EvaluateCard from './EvaluateCard.vue'
 import { useShowPrescription } from '@/composable'
+import { getIllnessTimeText, getConsultFlagText } from '@/utils/filter'
 
 defineProps<{
   list: Message[]
 }>()
 
-// 获取患病时间文字
-const getIllnessTimeText = (time?: ConsultTime) => {
-  return illnessTimeOptions.find((item) => item.value === time)?.label
-}
-// 获取是否就诊文字
-const getConsultFlagText = (flag?: 0 | 1) => {
-  return consultFlagOptions.find((item) => item.value === flag)?.label
-}
 // 预览图片
 const onPreviewImage = (pictures?: Image[]) => {
   if (pictures && pictures.length) {

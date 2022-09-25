@@ -1,4 +1,5 @@
 import type { ConsultTime, ConsultType, OrderType } from '@/enums'
+import type { Patient } from './user'
 
 // 文章类型
 export type KnowledgeType = 'like' | 'recommend' | 'fatReduction' | 'food'
