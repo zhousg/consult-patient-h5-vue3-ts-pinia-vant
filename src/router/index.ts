@@ -93,6 +93,11 @@ const router = createRouter({
       path: '/user/consult/:id',
       component: () => import('@/views/User/ConsultDetail.vue'),
       meta: { title: '问诊详情' }
+    },
+    {
+      path: '/order/pay',
+      component: () => import('@/views/Order/OrderPay.vue'),
+      meta: { title: '药品支付' }
     }
   ]
 })
