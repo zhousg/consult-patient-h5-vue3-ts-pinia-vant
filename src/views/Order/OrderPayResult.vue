@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { useOrderDetail } from '@/composable';
-import { OrderType } from '@/enums';
-import { useRoute } from 'vue-router';
-
+import { useOrderDetail } from '@/composable'
+import { OrderType } from '@/enums'
+import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const { order } = useOrderDetail(route.query.orderId as string)
-
 </script>
 
 <template>
@@ -22,7 +20,7 @@ const { order } = useOrderDetail(route.query.orderId as string)
         <van-button :to="`/room?orderId=${order.roomId}`">返回诊室</van-button>
       </div>
     </div>
-    <div class="result error" v-else >
+    <div class="result error" v-else>
       <van-icon name="clear" />
       <p class="price">￥ {{ order.actualPayment }}</p>
       <p class="status">支付失败</p>

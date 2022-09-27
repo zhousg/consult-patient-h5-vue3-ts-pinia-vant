@@ -4,6 +4,9 @@ import type { Logistics } from '@/types/order'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import AMapLoader from '@amap/amap-jsapi-loader'
+import startImg from '@/assets/start.png'
+import endImg from '@/assets/end.png'
+import carImg from '@/assets/car.png'
 
 // v2.0 需要配置
 window._AMapSecurityConfig = {
@@ -29,6 +32,61 @@ onMounted(async () => {
     const map = new AMap.Map('map', {
       mapStyle: 'amap://styles/whitesmoke',
       zoom: 12
+    })
+    AMap.plugin('AMap.Driving', function () {
+      // 加载路线规划插件
+      // 初始化路线规划对象
+      const driving = new AMap.Driving({
+        map: map,
+        showTraffic: false,
+        hideMarkers: true
+      })
+      // var startLngLat = [116.34588707897947, 40.06120076393006]
+      // var endLngLat = [116.427281, 39.903719]
+      // 第一个是起始坐标，第二个是终点坐标， 第三个是路途中的经纬度坐标， 第四个规划好了的回调函数
+
+      // 使用经纬度数组中的第一个数据：起始坐标
+      const start = logistics.value?.logisticsInfo.shift()
+      const startMarker = new AMap.Marker({
+        icon: startImg,
+        position: [start?.longitude, start?.latitude]
+      })
+      map.add(startMarker)
+      // 使用经纬度数组中的最后一个数据：结束坐标
+      const end = logistics.value?.logisticsInfo.pop()
+      const endMarker = new AMap.Marker({
+        icon: endImg,
+        position: [end?.longitude, end?.latitude]
+      })
+      map.add(endMarker)
+
+      // 数组中留下的就是运输过程中的经纬度坐标
+
+      driving.search(
+        [start?.longitude, start?.latitude],
+        [end?.longitude, end?.latitude],
+        {
+          waypoints: logistics.value?.logisticsInfo.map((item) => [item.longitude, item.latitude])
+        },
+        function (status: string, result: object) {
+          // 未出错时，result即是对应的路线规划方案
+          // 绘制运输中货车的位置
+          const carMarker = new AMap.Marker({
+            icon: carImg,
+            position: [
+              logistics.value?.currentLocationInfo.longitude,
+              logistics.value?.currentLocationInfo.latitude
+            ],
+            anchor: 'center'
+          })
+          map.add(carMarker)
+          // 3s后，定位到货车，放大地图
+          setTimeout(() => {
+            map.setFitView([carMarker])
+            map.setZoom(10)
+          }, 3000)
+        }
+      )
     })
   })
 })

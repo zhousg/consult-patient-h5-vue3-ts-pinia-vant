@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { useOrderDetail } from '@/composable';
-import { useRoute } from 'vue-router';
-import OrderMedical from './components/OrderMedical.vue';
+import { useOrderDetail } from '@/composable'
+import { useRoute } from 'vue-router'
+import OrderMedical from './components/OrderMedical.vue'
 
 const route = useRoute()
-const { order } = useOrderDetail(route.params.id as string) 
-
+const { order } = useOrderDetail(route.params.id as string)
 </script>
 
 <template>
