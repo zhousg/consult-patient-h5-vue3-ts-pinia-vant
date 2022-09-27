@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { mobileRules, passwordRules, codeRules } from '@/utils/rules'
 import { Toast, type FormInstance } from 'vant'
 import { loginByCode, loginByPassword, sendMobileCode } from '@/services/user'
@@ -57,6 +57,13 @@ const send = async () => {
 onUnmounted(() => {
   clearInterval(timerId)
 })
+
+// 准备QQ登录按钮
+// onMounted(() => {
+//   QC.Login({
+//     btnId: 'qq'
+//   })
+// })
 </script>
 
 <template>
@@ -113,9 +120,13 @@ onUnmounted(() => {
     </van-form>
     <div class="login-other">
       <van-divider>第三方登录</van-divider>
-      <div class="icon">
+      <!-- <div id="qq"></div> -->
+      <a
+        href="https://graph.qq.com/oauth2.0/authorize?client_id=102015968&response_type=token&scope=all&redirect_uri=http%3A%2F%2Fconsult-patients.itheima.net%2Flogin%2Fcallback"
+        class="icon"
+      >
         <img src="@/assets/qq.svg" alt="" />
-      </div>
+      </a>
     </div>
   </div>
 </template>

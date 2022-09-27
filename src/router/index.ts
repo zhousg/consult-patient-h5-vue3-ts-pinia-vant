@@ -123,7 +123,7 @@ router.beforeEach((to) => {
   // 如果 return true 或啥也不写 就是放行
   // 拦截到某个页面，return '路由地址'
   const store = useUserStore()
-  const whiteList = ['/login']
+  const whiteList = ['/login', '/login/callback']
   // 需求：当你没有登录也就是没有token 且 你访问的不是登录页面  拦截到登录
   if (!store.user?.token && !whiteList.includes(to.path)) return '/login'
 })
