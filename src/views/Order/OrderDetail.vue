@@ -12,7 +12,7 @@ const { order } = useOrderDetail(route.params.id as string)
   <div class="order-detail-page" v-if="order">
     <cp-nav-bar title="药品订单详情" />
     <div class="order-head">
-      <div class="card">
+      <div class="card" @click="$router.push(`/order/logistics/${order!.id}`)">
         <div class="logistics">
           <p>{{ order.expressInfo.content }}</p>
           <p>{{ order.expressInfo.time }}</p>

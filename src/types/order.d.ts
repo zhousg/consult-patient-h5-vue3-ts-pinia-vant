@@ -1,4 +1,4 @@
-import type { OrderType } from '@/enums'
+import type { ExpressStatus, OrderType } from '@/enums'
 import type { Medical } from './room'
 
 export type OrderPre = {
@@ -53,4 +53,32 @@ export type OrderDetail = {
   expressFee: number
   actualPayment: number
   roomId: string
+}
+
+// 物流信息类型
+export type Express = {
+  id: string
+  content: string
+  createTime: string
+  status: ExpressStatus
+  statusValue: string
+}
+
+export type Location = {
+  //经
+  longitude: string
+  //纬
+  latitude: string
+}
+
+export type Logistics = {
+  // 预计到达时间
+  estimatedTime: string
+  name: string
+  awbNo: string
+  status: ExpressStatus
+  statusValue: string
+  list: Express[]
+  logisticsInfo: Location[]
+  currentLocationInfo: Location
 }
