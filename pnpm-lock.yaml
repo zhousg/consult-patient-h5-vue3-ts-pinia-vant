@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@amap/amap-jsapi-loader': ^1.0.1
   '@rushstack/eslint-patch': ^1.1.4
   '@types/node': ^16.11.56
   '@types/nprogress': ^0.2.0
@@ -32,6 +33,7 @@ specifiers:
   vue-tsc: ^0.40.7
 
 dependencies:
+  '@amap/amap-jsapi-loader': 1.0.1
   '@vueuse/core': 9.2.0_vue@3.2.39
   axios: 0.27.2
   dayjs: 1.11.5
@@ -65,6 +67,10 @@ devDependencies:
   vue-tsc: 0.40.13_typescript@4.7.4
 
 packages:
+
+  /@amap/amap-jsapi-loader/1.0.1:
+    resolution: {integrity: sha512-nPyLKt7Ow/ThHLkSvn2etQlUzqxmTVgK7bIgwdBRTg2HK5668oN7xVxkaiRe3YZEzGzfV2XgH5Jmu2T73ljejw==}
+    dev: false
 
   /@antfu/utils/0.5.2:
     resolution: {integrity: sha512-CQkeV+oJxUazwjlHD0/3ZD08QWKuGQkhnrKo3e6ly5pd48VUpXbb77q0xMU4+vc2CkJnDS02Eq/M9ugyX20XZA==}

@@ -1,16 +1,37 @@
 <script setup lang="ts">
-import { getMedicalOrderLogistics } from '@/services/order';
-import type { Logistics } from '@/types/order';
-import { onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { getMedicalOrderLogistics } from '@/services/order'
+import type { Logistics } from '@/types/order'
+import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import AMapLoader from '@amap/amap-jsapi-loader'
+
+// v2.0 需要配置
+window._AMapSecurityConfig = {
+  securityJsCode: '415e917da833efcf2d5b69f4d821784b'
+}
 
 const route = useRoute()
 const logistics = ref<Logistics>()
-onMounted(async ()=>{
+onMounted(async () => {
   const res = await getMedicalOrderLogistics(route.params.id as string)
   logistics.value = res.data
+  // await nextTick()
+  // // 操作 #map 元素
+  // console.log(document.querySelector('#map'))
+  // setTimeout(() => {
+  //   console.log(document.querySelector('#map'))
+  // }, 0)
+  AMapLoader.load({
+    key: '4eed3d61125c8b9c168fc22414aaef7e',
+    version: '2.0'
+  }).then((AMap) => {
+    // 使用 Amap 初始化地图
+    const map = new AMap.Map('map', {
+      mapStyle: 'amap://styles/whitesmoke',
+      zoom: 12
+    })
+  })
 })
-
 </script>
 
 <template>
@@ -32,7 +53,7 @@ onMounted(async ()=>{
     <div class="logistics">
       <p class="title">物流详情</p>
       <van-steps direction="vertical" :active="0">
-        <van-step v-for="item in logistics.list">
+        <van-step v-for="item in logistics.list" :key="item.id">
           <p class="status">{{ item.statusValue }}</p>
           <p class="content">{{ item.content }}</p>
           <p class="time">{{ item.createTime }}</p>
