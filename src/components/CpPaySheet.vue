@@ -27,7 +27,7 @@ const pay = async () => {
     const res = await getConsultOrderPayUrl({
       paymentMethod: paymentMethod.value,
       orderId: props.orderId,
-      payCallback: props.payCallback
+      payCallback: import.meta.env.VITE_APP_CALLBACK + props.payCallback
     })
     location.href = res.data.payUrl
   }

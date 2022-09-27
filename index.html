@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title><%=VITE_APP_TITLE%></title>
   </head>
   <body>
     <div id="app"></div>
@@ -12,7 +12,7 @@
     <script
       src="https://connect.qq.com/qc_jssdk.js"
       data-appid="102015968"
-      data-redirecturi="http://consult-patients.itheima.net/login/callback"
+      data-redirecturi="<%=VITE_APP_CALLBACK%>/login/callback"
     ></script>
   </body>
 </html>

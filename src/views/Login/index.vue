@@ -45,6 +45,7 @@ const { form, time, send } = useMobileCode(mobile, 'login')
 //     btnId: 'qq'
 //   })
 // })
+const url = encodeURIComponent(import.meta.env.VITE_APP_CALLBACK)
 </script>
 
 <template>
@@ -104,7 +105,7 @@ const { form, time, send } = useMobileCode(mobile, 'login')
       <!-- <div id="qq"></div> -->
       <a
         @click="store.updateReturnUrl($route.query.returnUrl as string)"
-        href="https://graph.qq.com/oauth2.0/authorize?client_id=102015968&response_type=token&scope=all&redirect_uri=http%3A%2F%2Fconsult-patients.itheima.net%2Flogin%2Fcallback"
+        :href="`https://graph.qq.com/oauth2.0/authorize?client_id=102015968&response_type=token&scope=all&redirect_uri=${url}`"
         class="icon"
       >
         <img src="@/assets/qq.svg" alt="" />
