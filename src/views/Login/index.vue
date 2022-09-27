@@ -6,6 +6,7 @@ import { loginByCode, loginByPassword } from '@/services/user'
 import { useUserStore } from '@/stores'
 import { useRoute, useRouter } from 'vue-router'
 import { useMobileCode } from '@/composable'
+import axios from 'axios'
 
 const agree = ref(false)
 const show = ref(false)
@@ -46,6 +47,9 @@ const { form, time, send } = useMobileCode(mobile, 'login')
 //   })
 // })
 const url = encodeURIComponent(import.meta.env.VITE_APP_CALLBACK)
+
+// 测试mock接口
+axios.get('/patient/message/list').then((res) => console.log('mock', res))
 </script>
 
 <template>
