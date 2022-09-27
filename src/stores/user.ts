@@ -16,7 +16,10 @@ export const useUserStore = defineStore(
     const delUser = () => {
       user.value = undefined
     }
-    return { user, setUser, delUser }
+    // 4. 记录回跳地址，修改回跳地址
+    const returnUrl = ref('')
+    const updateReturnUrl = (url: string) => (returnUrl.value = url)
+    return { user, setUser, delUser, returnUrl, updateReturnUrl }
   },
   {
     // 开启持久化（使用本地存储，默认是localStorage）

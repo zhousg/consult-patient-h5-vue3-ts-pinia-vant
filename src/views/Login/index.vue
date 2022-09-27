@@ -122,6 +122,7 @@ onUnmounted(() => {
       <van-divider>第三方登录</van-divider>
       <!-- <div id="qq"></div> -->
       <a
+        @click="store.updateReturnUrl($route.query.returnUrl as string)"
         href="https://graph.qq.com/oauth2.0/authorize?client_id=102015968&response_type=token&scope=all&redirect_uri=http%3A%2F%2Fconsult-patients.itheima.net%2Flogin%2Fcallback"
         class="icon"
       >
@@ -132,59 +133,5 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss" scoped>
-.login {
-  &-page {
-    padding-top: 46px;
-  }
-  &-head {
-    padding: 30px 30px 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    line-height: 1;
-    h3 {
-      font-weight: normal;
-      font-size: 24px;
-    }
-    a {
-      font-size: 15px;
-    }
-  }
-  &-other {
-    margin-top: 60px;
-    padding: 0 30px;
-    .icon {
-      display: flex;
-      justify-content: center;
-      img {
-        width: 36px;
-        height: 36px;
-        padding: 4px;
-      }
-    }
-  }
-}
-.van-form {
-  padding: 0 14px;
-  .cp-cell {
-    height: 52px;
-    line-height: 24px;
-    padding: 14px 16px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    .van-checkbox {
-      a {
-        color: var(--cp-primary);
-        padding: 0 5px;
-      }
-    }
-  }
-  .btn-send {
-    color: var(--cp-primary);
-    &.active {
-      color: rgba(22, 194, 163, 0.5);
-    }
-  }
-}
+@import '@/styles/login.scss';
 </style>
