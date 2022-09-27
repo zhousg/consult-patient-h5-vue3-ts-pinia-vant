@@ -23,3 +23,6 @@ export const updatePatient = (patient: Patient) => request('patient/update', 'PU
 export const deletePatient = (id: string) => request(`patient/del/${id}`, 'DELETE')
 
 export const getPatientDetial = (id: string) => request<Patient>(`patient/info/${id}`)
+
+export const loginByQQ = (openId: string) =>
+  request<User>('/login/thirdparty', 'POST', { openId, source: 'qq' })
