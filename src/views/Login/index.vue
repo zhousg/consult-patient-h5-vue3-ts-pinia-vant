@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { onUnmounted, ref } from 'vue'
+import { ref } from 'vue'
 import { mobileRules, passwordRules, codeRules } from '@/utils/rules'
-import { Toast, type FormInstance } from 'vant'
-import { loginByCode, loginByPassword, sendMobileCode } from '@/services/user'
+import { Toast } from 'vant'
+import { loginByCode, loginByPassword } from '@/services/user'
 import { useUserStore } from '@/stores'
 import { useRoute, useRouter } from 'vue-router'
+import { useMobileCode } from '@/composable'
 
 const agree = ref(false)
 const show = ref(false)
@@ -36,27 +37,7 @@ const code = ref('')
 // 1. API接口调用函数
 // 2. 发送短信验证码： 判断是否正在倒计时 校验输入框  调用短信接口
 // 3. 接口成功，倒计时，组件销毁要清理定时器
-const time = ref(0)
-const form = ref<FormInstance | null>(null)
-let timerId: number
-const send = async () => {
-  if (time.value > 0) return
-  await form.value?.validate('mobile')
-  // 上面的校验成功发验证码
-  await sendMobileCode(mobile.value, 'login')
-  time.value = 60
-  Toast.success('发送成功')
-  // 开启倒计时
-  if (timerId) clearInterval(timerId)
-  timerId = setInterval(() => {
-    time.value--
-    if (time.value <= 0) clearInterval(timerId)
-  }, 1000)
-}
-
-onUnmounted(() => {
-  clearInterval(timerId)
-})
+const { form, time, send } = useMobileCode(mobile, 'login')
 
 // 准备QQ登录按钮
 // onMounted(() => {

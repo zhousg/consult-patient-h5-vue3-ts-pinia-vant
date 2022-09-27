@@ -1,10 +1,12 @@
 import type { ConsultOrderItem, FollowType } from '@/types/consult'
 import { cancelOrder, deleteOrder, followTarget, getPrescriptionPic } from '@/services/consult'
-import { onMounted, ref } from 'vue'
-import { ImagePreview, Toast } from 'vant'
+import { onMounted, onUnmounted, ref, type Ref } from 'vue'
+import { ImagePreview, Toast, type FormInstance } from 'vant'
 import { OrderType } from '@/enums'
 import type { OrderDetail } from '@/types/order'
 import { getMedicalOrderDetail } from '@/services/order'
+import { sendMobileCode } from '@/services/user'
+import type { CodeType } from '@/types/user'
 
 export const useFollow = (type: FollowType = 'doc') => {
   // 关注逻辑
@@ -98,4 +100,30 @@ export const useOrderDetail = (id: string) => {
     }
   })
   return { loading, order }
+}
+
+export const useMobileCode = (mobile: Ref<string>, type: CodeType) => {
+  const time = ref(0)
+  const form = ref<FormInstance | null>(null)
+  let timerId: number
+  const send = async () => {
+    if (time.value > 0) return
+    await form.value?.validate('mobile')
+    // 上面的校验成功发验证码
+    await sendMobileCode(mobile.value, type)
+    time.value = 60
+    Toast.success('发送成功')
+    // 开启倒计时
+    if (timerId) clearInterval(timerId)
+    timerId = setInterval(() => {
+      time.value--
+      if (time.value <= 0) clearInterval(timerId)
+    }, 1000)
+  }
+
+  onUnmounted(() => {
+    clearInterval(timerId)
+  })
+
+  return { form, time, send }
 }

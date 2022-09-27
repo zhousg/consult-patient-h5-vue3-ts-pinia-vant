@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { bindMobile, loginByQQ, sendMobileCode } from '@/services/user'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { bindMobile, loginByQQ } from '@/services/user'
+import { onMounted, ref } from 'vue'
 import { mobileRules, codeRules } from '@/utils/rules'
-import { Toast, type FormInstance } from 'vant'
+import { Toast } from 'vant'
 import { useUserStore } from '@/stores'
 import type { User } from '@/types/user'
 import { useRouter } from 'vue-router'
+import { useMobileCode } from '@/composable'
 // 1. 进行登录
 // 1.1 通过QQ的js文件提供的API获取你登录后的openId(就是登录后标识)
 // 1.2 如果后台的数据库中存储了 openId + 你的账号手机号  去登录就可以成功，否则失败
@@ -36,27 +37,7 @@ onMounted(() => {
 const mobile = ref('')
 const code = ref('')
 
-const time = ref(0)
-const form = ref<FormInstance | null>(null)
-let timerId: number
-const send = async () => {
-  if (time.value > 0) return
-  await form.value?.validate('mobile')
-  // 上面的校验成功发验证码
-  await sendMobileCode(mobile.value, 'bindMobile')
-  time.value = 60
-  Toast.success('发送成功')
-  // 开启倒计时
-  if (timerId) clearInterval(timerId)
-  timerId = setInterval(() => {
-    time.value--
-    if (time.value <= 0) clearInterval(timerId)
-  }, 1000)
-}
-
-onUnmounted(() => {
-  clearInterval(timerId)
-})
+const { form, time, send } = useMobileCode(mobile, 'bindMobile')
 
 // 绑定手机号
 // 成功：
