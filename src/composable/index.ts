@@ -115,7 +115,7 @@ export const useMobileCode = (mobile: Ref<string>, type: CodeType) => {
     Toast.success('发送成功')
     // 开启倒计时
     if (timerId) clearInterval(timerId)
-    timerId = setInterval(() => {
+    timerId = window.setInterval(() => {
       time.value--
       if (time.value <= 0) clearInterval(timerId)
     }, 1000)
