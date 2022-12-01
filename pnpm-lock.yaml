@@ -13,6 +13,7 @@ specifiers:
   lint-staged: ^13.0.3
   npm-run-all: ^4.1.5
   pinia: ^2.0.21
+  pinia-plugin-persistedstate: ^3.0.1
   postcss-px-to-viewport: ^1.1.1
   prettier: ^2.7.1
   sass: ^1.56.1
@@ -25,6 +26,7 @@ specifiers:
 
 dependencies:
   pinia: 2.0.25_e7lp6ggkpgyi5vqd44m2kxvk6i
+  pinia-plugin-persistedstate: 3.0.1_pinia@2.0.25
   vant: 4.0.0_vue@3.2.45
   vue: 3.2.45
   vue-router: 4.1.6_vue@3.2.45
@@ -2035,6 +2037,14 @@ packages:
     resolution: {integrity: sha512-C3FsVNH1udSEX48gGX1xfvwTWfsYWj5U+8/uK15BGzIGrKoUpghX8hWZwa/OFnakBiiVNmBvemTJR5mcy7iPcg==}
     engines: {node: '>=4'}
     dev: true
+
+  /pinia-plugin-persistedstate/3.0.1_pinia@2.0.25:
+    resolution: {integrity: sha512-WRNWtR4v8StJqBQH+Qiz88SGnlr4wvEyh7wtA+fYEVLoIOnpZ0v4FICvUcC8eUkAIvQL3n6/Ew2yryw7okazvA==}
+    peerDependencies:
+      pinia: ^2.0.0
+    dependencies:
+      pinia: 2.0.25_e7lp6ggkpgyi5vqd44m2kxvk6i
+    dev: false
 
   /pinia/2.0.25_e7lp6ggkpgyi5vqd44m2kxvk6i:
     resolution: {integrity: sha512-3reAkjJ6bW2D5hZKRMS0c9rUbHVlsVyZd037xO0PJr2AuF/09RRSBnFLlJgmHF4Jx6dEoW/jZBOHTushY7IMlw==}
