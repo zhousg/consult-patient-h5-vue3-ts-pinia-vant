@@ -1,8 +1,7 @@
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import presist from 'pinia-plugin-persistedstate'
 
 import App from './App.vue'
+import pinia from './stores'
 import router from './router'
 
 // 在main.css之前引入，后面需要去覆盖vant
@@ -11,7 +10,7 @@ import './styles/main.scss'
 
 const app = createApp(App)
 
-app.use(createPinia().use(presist))
+app.use(pinia)
 app.use(router)
 
 app.mount('#app')
