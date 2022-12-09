@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Button as VanButton } from 'vant'
 import { useUserStore } from './stores'
+import type { User } from './types/user'
 import { request } from './utils/request'
 
 const store = useUserStore()
@@ -24,12 +25,13 @@ const login = () => {
   //       password: 'abc12345'
   //     }
   //   })
-  request('login/password', 'POST', {
+  // 判断响应数据的类型是否正确？如果不正确怎么去设置类型
+  request<User>('login/password', 'POST', {
     mobile: '13211112222',
     password: 'abc12345'
   })
     .then((res) => {
-      console.log('成功', res)
+      console.log('成功', res.data.account)
     })
     .catch((err) => {
       console.log('失败', err)
