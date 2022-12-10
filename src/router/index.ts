@@ -8,7 +8,12 @@ const router = createRouter({
   // history: createWebHistory(import.meta.env.BASE_URL),
   // 默认参数 '/' 路由的基础路由
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: []
+  routes: [
+    {
+      path: '/login',
+      component: () => import('@/views/Login/index.vue')
+    }
+  ]
 })
 
 console.log(import.meta)
