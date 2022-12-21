@@ -2,6 +2,7 @@
 
 <template>
   <div class="app">
+    <router-link to="/login">login</router-link>
     <!-- 路由出口-一级路由 -->
     <router-view></router-view>
   </div>
