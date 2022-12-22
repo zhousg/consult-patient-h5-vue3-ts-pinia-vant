@@ -1,5 +1,12 @@
 <script setup lang="ts">
 const fn = () => console.log('fn')
+
+// typeof 作用：从js变量中取出对应的类型
+// const obj = {
+//   name: 'jack',
+//   age: 10
+// }
+// type Obj = typeof obj
 </script>
 
 <template>
