@@ -13,5 +13,24 @@
   --cp-bg: #F6F7F9;
   --cp-price: #EB5757;
   // 覆盖vant的变量
-  --van-primary-color: var(--cp-primary)
+  --van-primary-color: var(--cp-primary);
+  // 单元格上下间距
+  --van-cell-vertical-padding: 14px;
+  // 复选框大小
+  --van-checkbox-size: 14px;
+  // 默认按钮文字大小
+  --van-button-normal-font-size: 16px;
+}
+
+// 全局样式
+body {
+  font-size: 14px;
+  color: var(--cp-text1);
+}
+a {
+  color: var(--cp-text2);
+}
+h1,h2,h3,h4,h5,h6,p,ul,ol {
+  margin: 0;
+  padding: 0;
 }
