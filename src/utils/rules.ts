@@ -14,4 +14,9 @@ const passwordRules: FieldRule[] = [
   }
 ]
 
-export { mobileRules, passwordRules }
+const codeRules: FieldRule[] = [
+  { required: true, message: '请输入短信验证码' },
+  { pattern: /^\d{6}$/, message: '验证码是6个数字' }
+]
+
+export { mobileRules, passwordRules, codeRules }
