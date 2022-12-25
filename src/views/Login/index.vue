@@ -2,7 +2,7 @@
 import { ref, onUnmounted } from 'vue'
 import { mobileRules, passwordRules, codeRules } from '@/utils/rules'
 import { showSuccessToast, showToast, type FormInstance } from 'vant'
-import { loginByPassword, sendMobileCode } from '@/services/user'
+import { loginByPassword, sendMobileCode, loginByMobile } from '@/services/user'
 import { useUserStore } from '@/stores'
 import { useRoute, useRouter } from 'vue-router'
 
@@ -15,8 +15,10 @@ const router = useRouter()
 const route = useRoute()
 const onSubmit = async () => {
   if (!agree.value) return showToast('请勾选协议')
-  // 进行登录
-  const res = await loginByPassword(mobile.value, password.value)
+  // 进行登录(合并短信登录)
+  const res = isPass.value
+    ? await loginByPassword(mobile.value, password.value)
+    : await loginByMobile(mobile.value, code.value)
   store.setUser(res.data)
   showSuccessToast('登录成功')
   router.replace((route.query.returnUrl as string) || '/user')
