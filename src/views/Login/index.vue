@@ -113,6 +113,9 @@ onUnmounted(() => {
         <a href="javascript:;">忘记密码？</a>
       </div>
     </van-form>
+    <svg aria-hidden="true">
+      <use href="#icon-consult-alipay" />
+    </svg>
     <!-- 底部 -->
     <div class="login-other">
       <van-divider>第三方登录</van-divider>
