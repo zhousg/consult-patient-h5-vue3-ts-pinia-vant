@@ -90,8 +90,8 @@ onUnmounted(() => {
       >
         <template #button>
           <span class="btn-send" :class="{ active: time > 0 }" @click="onSend">
-            {{ time > 0 ? `${time}s后再次发送` : '发送验证码' }}</span
-          >
+            {{ time > 0 ? `${time}s后再次发送` : '发送验证码' }}
+          </span>
         </template>
       </van-field>
       <div class="cp-cell">
