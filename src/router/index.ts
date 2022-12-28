@@ -52,7 +52,7 @@ const router = createRouter({
   ]
 })
 
-// 全局的前置导航
+// 全局的前置导航守卫
 router.beforeEach((to) => {
   NProgress.start()
   // 获取 token 的
