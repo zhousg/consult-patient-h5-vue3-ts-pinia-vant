@@ -195,8 +195,8 @@ const onLogout = async () => {
         font-size: 28px;
       }
       p {
-        font-size: 12px;
         padding-top: 4px;
+        font-size: 12px;
       }
     }
   }
