@@ -1,4 +1,4 @@
-import type { CodeType, User, UserInfo } from '@/types/user'
+import type { CodeType, PatientList, User, UserInfo } from '@/types/user'
 import { request } from '@/utils/request'
 
 // 密码登录
@@ -15,3 +15,6 @@ export const loginByMobile = (mobile: string, code: string) =>
 
 // 获取用户信息
 export const getUserInfo = () => request<UserInfo>('patient/myUser')
+
+// 获取患者列表信息
+export const getPatientList = () => request<PatientList>('patient/mylist')
