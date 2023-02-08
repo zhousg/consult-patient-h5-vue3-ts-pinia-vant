@@ -14,7 +14,11 @@ onMounted(() => {
   loadList()
 })
 
-const count = ref(10)
+const options = [
+  { label: '男', value: 1 },
+  { label: '女', value: 0 }
+]
+const gender = ref(1)
 </script>
 
 <template>
@@ -43,7 +47,7 @@ const count = ref(10)
         :model-value="count"
         @update:model-value="count = $event"
       ></cp-radio-btn> -->
-      <cp-radio-btn v-model:count="count"></cp-radio-btn>
+      <cp-radio-btn :options="options" v-model="gender"></cp-radio-btn>
     </div>
   </div>
 </template>
