@@ -13,6 +13,8 @@ const loadList = async () => {
 onMounted(() => {
   loadList()
 })
+
+const count = ref(10)
 </script>
 
 <template>
@@ -36,6 +38,12 @@ onMounted(() => {
         <p>添加患者</p>
       </div>
       <div class="patient-tip">最多可添加 6 人</div>
+      <!-- 测试 -->
+      <!-- <cp-radio-btn
+        :model-value="count"
+        @update:model-value="count = $event"
+      ></cp-radio-btn> -->
+      <cp-radio-btn v-model:count="count"></cp-radio-btn>
     </div>
   </div>
 </template>
