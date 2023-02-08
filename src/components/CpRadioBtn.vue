@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps<{
   options: { label: string; value: number | string }[]
-  modelValue: number | string
+  modelValue?: number | string
 }>()
 
 defineEmits<{

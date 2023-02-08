@@ -22,7 +22,7 @@ specifiers:
   sass: ^1.56.1
   typescript: ~4.7.4
   unplugin-vue-components: ^0.22.12
-  vant: ^4.0.0
+  vant: ^4.0.10
   vite: ^3.0.9
   vite-plugin-svg-icons: ^2.0.1
   vue: ^3.2.38
@@ -34,7 +34,7 @@ dependencies:
   nprogress: 0.2.0
   pinia: 2.0.25_e7lp6ggkpgyi5vqd44m2kxvk6i
   pinia-plugin-persistedstate: 3.0.1_pinia@2.0.25
-  vant: 4.0.0_vue@3.2.45
+  vant: 4.0.10_vue@3.2.45
   vue: 3.2.45
   vue-router: 4.1.6_vue@3.2.45
 
@@ -351,8 +351,8 @@ packages:
     resolution: {integrity: sha512-hB+czUG+aHtjhaEmCJDuXOep0YTZjdlRR+4MSmIFnkCQIxJaXLQdSsR90XWvAI2yvKUI7TCGqR8pQg2RtvkMHw==}
     dev: false
 
-  /@vant/use/1.4.3:
-    resolution: {integrity: sha512-rSnETN7P9qT1WbItMpQxBqe3cHeK2ZFYp1sCxWUXaTeI71TqA8sOdzC36ledZ36NQgFNTch9fsRPYOkrCgZfQA==}
+  /@vant/use/1.5.0:
+    resolution: {integrity: sha512-Dk7aMn7gLpoDew2tix/mjXpP0PoERWcxWh+pRY4xxl0MG4eeByAAyZSE6PgMpof4Yorqn7yq8KmeQcaVnxq2cg==}
     dev: false
 
   /@vitejs/plugin-vue/3.2.0_vite@3.2.4+vue@3.2.45:
@@ -3698,13 +3698,13 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vant/4.0.0_vue@3.2.45:
-    resolution: {integrity: sha512-s3FDA7mWfkgFBWq/8J09dQZETeCzfGT41289fTIcp7VEcME62zXEw+8S41+stJVjk8fNXYRvMXsGfcD7HTLpaQ==}
+  /vant/4.0.10_vue@3.2.45:
+    resolution: {integrity: sha512-kpxzjgjJdZePqbcG0q+CM4v5lGFlPxQMb2irXsknUzHFe8XZgk3cQ/gukpn9flpMuNi6hPcwoQaAnyzAKlCYpg==}
     peerDependencies:
       vue: ^3.0.0
     dependencies:
       '@vant/popperjs': 1.3.0
-      '@vant/use': 1.4.3
+      '@vant/use': 1.5.0
       vue: 3.2.45
     dev: false
 

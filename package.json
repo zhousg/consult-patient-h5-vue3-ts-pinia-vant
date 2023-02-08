@@ -21,7 +21,7 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.0.21",
     "pinia-plugin-persistedstate": "^3.0.1",
-    "vant": "^4.0.0",
+    "vant": "^4.0.10",
     "vue": "^3.2.38",
     "vue-router": "^4.1.5"
   },
