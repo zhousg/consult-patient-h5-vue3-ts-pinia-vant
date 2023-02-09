@@ -2,6 +2,8 @@
 import { getPatientList } from '@/services/user'
 import type { PatientList, Patient } from '@/types/user'
 import { ref, onMounted, computed } from 'vue'
+import { nameRules, idCardRules } from '@/utils/rules'
+import { showConfirmDialog, type FormInstance } from 'vant'
 
 // 组件挂载完毕，获取数据
 const list = ref<PatientList>([])
@@ -38,6 +40,23 @@ const defaultFlag = computed({
   get: () => (patient.value.defaultFlag === 1 ? true : false),
   set: (value) => (patient.value.defaultFlag = value ? 1 : 0)
 })
+
+// 进行提交
+const form = ref<FormInstance>()
+const onSubmit = async () => {
+  // 表单整体校验 validate 进行校验
+  await form.value?.validate()
+  // 性别校验
+  // 取出身份证倒数第二位，%2之后  1 男  0 女
+  const gender = +patient.value.idCard.slice(-2, -1) % 2
+  if (gender !== patient.value.gender) {
+    await showConfirmDialog({
+      title: '温馨提示',
+      message: '填写的性别好身份证上的不一致\n您确认提交吗？'
+    })
+  }
+  // 提交即可
+}
 </script>
 
 <template>
@@ -68,17 +87,20 @@ const defaultFlag = computed({
         title="添加患者"
         right-text="保存"
         :back="() => (show = false)"
+        @click-right="onSubmit"
       ></cp-nav-bar>
       <van-form autocomplete="off" ref="form">
         <van-field
           v-model="patient.name"
           label="真实姓名"
           placeholder="请输入真实姓名"
+          :rules="nameRules"
         />
         <van-field
           v-model="patient.idCard"
           label="身份证号"
           placeholder="请输入身份证号"
+          :rules="idCardRules"
         />
         <van-field label="性别" class="pb4">
           <!-- 单选按钮组件 -->
