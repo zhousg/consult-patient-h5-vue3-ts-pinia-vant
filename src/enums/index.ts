@@ -1,4 +1,4 @@
-export {}
+// export {}
 
 // 枚举：一组可选的常量
 // 需求：0 1 2 3 上下左右
@@ -27,15 +27,30 @@ export {}
 // }
 
 // 可以是字符串
-enum Direction {
-  Up = 'Up',
-  Down = 'Down',
-  Left = 'Left',
-  Right = 'Right'
+// enum Direction {
+//   Up = 'Up',
+//   Down = 'Down',
+//   Left = 'Left',
+//   Right = 'Right'
+// }
+
+// const changeDirection = (direction: Direction) => {
+//   console.log(direction)
+// }
+
+// changeDirection(Direction.Right)
+
+// 问诊类型
+export enum ConsultType {
+  Doctor = 1,
+  Fast = 2,
+  Medication = 3
 }
 
-const changeDirection = (direction: Direction) => {
-  console.log(direction)
+// 问诊时间
+export enum IllnessTime {
+  Week = 1,
+  Month,
+  HalfYear,
+  More
 }
-
-changeDirection(Direction.Right)
