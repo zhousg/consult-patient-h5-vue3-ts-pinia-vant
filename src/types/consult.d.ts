@@ -140,3 +140,9 @@ type SubDep = {
 type TopDep = SubDep & {
   child: SubDep[]
 }
+
+// 病情描述对象
+type ConsultIllness = Pick<
+  PartialConsult,
+  'illnessDesc' | 'illnessTime' | 'consultFlag' | 'pictures'
+>
