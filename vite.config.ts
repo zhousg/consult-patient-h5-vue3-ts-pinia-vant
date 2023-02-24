@@ -5,7 +5,6 @@ import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 import { VantResolver } from 'unplugin-vue-components/resolvers'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
-import path from 'path'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import { viteMockServe } from 'vite-plugin-mock'
 
@@ -37,7 +36,7 @@ export default defineConfig({
     // 打包svg图标
     createSvgIconsPlugin({
       // 指定svg图标的目录
-      iconDirs: [path.resolve(process.cwd(), 'src/icons')]
+      iconDirs: [fileURLToPath(new URL('./src/icons', import.meta.url))]
     })
   ],
   resolve: {
