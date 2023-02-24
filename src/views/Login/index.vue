@@ -46,7 +46,7 @@ const { form, time, send } = useMobileCode(mobile, 'login')
 //     btnId: 'qq'
 //   })
 // })
-const url = encodeURIComponent(import.meta.env.VITE_APP_CALLBACK)
+const url = encodeURIComponent(import.meta.env.VITE_APP_CALLBACK + '/login/callback')
 
 // 测试mock接口
 axios.get('/patient/message/list').then((res) => console.log('mock', res))
