@@ -34,3 +34,9 @@ export const getConsultOrderPre = (params: ConsultOrderPreParams) =>
 
 export const createConsultOrder = (data: PartialConsult) =>
   request<{ id: string }>('patient/consult/order', 'POST', data)
+
+export const getConsultOrderPayUrl = (params: {
+  paymentMethod: 0 | 1
+  orderId: string
+  payCallback: string
+}) => request<{ payUrl: string }>('patient/consult/pay', 'POST', params)
