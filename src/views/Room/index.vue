@@ -29,6 +29,9 @@ onMounted(() => {
   socket.on('error', () => {
     console.log('发生错误')
   })
+  socket.on('chatMsgList', (res) => {
+    console.log(res)
+  })
 })
 onUnmounted(() => {
   socket.close()
