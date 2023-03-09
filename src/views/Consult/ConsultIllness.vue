@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IllnessTime } from '@/enums'
+import { flagOptions, timeOptions } from '@/services/constants'
 import { uploadImage } from '@/services/consult'
 import { useConsultStore } from '@/stores'
 import type { ConsultIllness, Image } from '@/types/consult'
@@ -8,9 +8,8 @@ import type {
   UploaderAfterRead,
   UploaderFileListItem
 } from 'vant/lib/uploader/types'
-import { ref, computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { timeOptions, flagOptions } from '@/services/constants'
 
 // 病情描述对象
 const form = ref<ConsultIllness>({
