@@ -9,7 +9,7 @@ import { useUserStore } from '@/stores'
 import { useRoute } from 'vue-router'
 import type { Message, TimeMessages } from '@/types/room'
 import { MsgType, OrderType } from '@/enums'
-import { ref } from 'vue'
+import { ref, nextTick } from 'vue'
 import type { ConsultOrderItem } from '@/types/consult'
 import { getConsultOrderDetail } from '@/services/consult'
 
@@ -62,6 +62,12 @@ onMounted(() => {
   })
   // 监听订单状态变化
   socket.on('statusChange', () => loadConsult())
+  // 接收聊天消息
+  socket.on('receiveChatMsg', async (event) => {
+    list.value.push(event)
+    await nextTick()
+    window.scrollTo(0, document.body.scrollHeight)
+  })
 })
 onUnmounted(() => {
   socket.close()

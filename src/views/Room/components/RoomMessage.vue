@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { IllnessTime, MsgType } from '@/enums'
 import { flagOptions, timeOptions } from '@/services/constants'
+import { useUserStore } from '@/stores'
 import type { Image } from '@/types/consult'
 import type { Message } from '@/types/room'
 import { showImagePreview, showToast } from 'vant'
+import dayjs from 'dayjs'
 
 defineProps<{
   item: Message
@@ -20,6 +22,10 @@ const onPreviewImage = (images?: Image[]) => {
   if (images && images.length) showImagePreview(images.map((item) => item.url))
   else showToast('暂无图片')
 }
+
+const store = useUserStore()
+
+const formatTime = (time: string) => dayjs(time).format('HH:mm')
 </script>
 
 <template>
@@ -67,15 +73,16 @@ const onPreviewImage = (images?: Image[]) => {
     </div>
   </div> -->
   <!-- 发送文字 -->
-  <!-- <div class="msg msg-to">
+  <div
+    class="msg msg-to"
+    v-if="item.msgType === MsgType.MsgText && item.from === store.user?.id"
+  >
     <div class="content">
-      <div class="time">20:12</div>
-      <div class="pao">大夫你好？</div>
+      <div class="time">{{ formatTime(item.createTime) }}</div>
+      <div class="pao">{{ item.msg.content }}</div>
     </div>
-    <van-image
-      src="https://yjy-oss-files.oss-cn-zhangjiakou.aliyuncs.com/tuxian/popular_3.jpg"
-    />
-  </div> -->
+    <van-image :src="item.fromAvatar" />
+  </div>
   <!-- 发送图片 -->
   <!-- <div class="msg msg-to">
     <div class="content">
@@ -90,15 +97,16 @@ const onPreviewImage = (images?: Image[]) => {
     />
   </div> -->
   <!-- 接收文字 -->
-  <!-- <div class="msg msg-from">
-    <van-image
-      src="https://yjy-oss-files.oss-cn-zhangjiakou.aliyuncs.com/tuxian/popular_3.jpg"
-    />
+  <div
+    class="msg msg-from"
+    v-if="item.msgType === MsgType.MsgText && item.from !== store.user?.id"
+  >
+    <van-image :src="item.fromAvatar" />
     <div class="content">
-      <div class="time">20:12</div>
-      <div class="pao">哪里不舒服</div>
+      <div class="time">{{ formatTime(item.createTime) }}</div>
+      <div class="pao">{{ item.msg.content }}</div>
     </div>
-  </div> -->
+  </div>
   <!-- 接收图片 -->
   <!-- <div class="msg msg-from">
     <van-image
