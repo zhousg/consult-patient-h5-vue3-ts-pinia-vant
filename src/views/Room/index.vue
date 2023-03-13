@@ -9,7 +9,7 @@ import { useUserStore } from '@/stores'
 import { useRoute } from 'vue-router'
 import type { Message, TimeMessages } from '@/types/room'
 import { MsgType, OrderType } from '@/enums'
-import { ref, nextTick } from 'vue'
+import { ref, nextTick, provide } from 'vue'
 import type { ConsultOrderItem, Image } from '@/types/consult'
 import { getConsultOrderDetail } from '@/services/consult'
 import dayjs from 'dayjs'
@@ -20,6 +20,17 @@ const loadConsult = async () => {
   const res = await getConsultOrderDetail(route.query.orderId as string)
   consult.value = res.data
 }
+
+// 提供问诊订单数据给后代组件
+provide('consult', consult)
+const completeEva = (score: number) => {
+  const item = list.value.find((item) => item.msgType === MsgType.CardEvaForm)
+  if (item) {
+    item.msg.evaluateDoc = { score }
+    item.msgType = MsgType.CardEva
+  }
+}
+provide('completeEva', completeEva)
 
 const store = useUserStore()
 const route = useRoute()

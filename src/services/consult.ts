@@ -47,3 +47,11 @@ export const getConsultOrderDetail = (orderId: string) =>
 
 export const getPrescriptionPic = (id: string) =>
   request<{ url: string }>(`patient/consult/prescription/${id}`)
+
+export const evaluateConsultOrder = (data: {
+  docId: string
+  orderId: string
+  score: number
+  content: string
+  anonymousFlag: 0 | 1
+}) => request('patient/order/evaluate', 'POST', data)
