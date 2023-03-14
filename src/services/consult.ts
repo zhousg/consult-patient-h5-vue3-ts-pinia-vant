@@ -1,5 +1,7 @@
 import type {
   ConsultOrderItem,
+  ConsultOrderListParams,
+  ConsultOrderPage,
   ConsultOrderPreData,
   ConsultOrderPreParams,
   DoctorPage,
@@ -55,3 +57,6 @@ export const evaluateConsultOrder = (data: {
   content: string
   anonymousFlag: 0 | 1
 }) => request('patient/order/evaluate', 'POST', data)
+
+export const getConsultOrderList = (params: ConsultOrderListParams) =>
+  request<ConsultOrderPage>('patient/consult/order/list', 'GET', params)
