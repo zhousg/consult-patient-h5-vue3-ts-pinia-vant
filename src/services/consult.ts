@@ -63,3 +63,6 @@ export const getConsultOrderList = (params: ConsultOrderListParams) =>
 
 export const cancelOrder = (id: string) =>
   request(`patient/order/cancel/${id}`, 'PUT')
+
+export const deleteOrder = (id: string) =>
+  request(`patient/order/${id}`, 'DELETE')
