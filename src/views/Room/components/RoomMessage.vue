@@ -1,24 +1,18 @@
 <script setup lang="ts">
-import { IllnessTime, MsgType } from '@/enums'
-import { flagOptions, timeOptions } from '@/services/constants'
+import { useShowPrescription } from '@/composables'
+import { MsgType } from '@/enums'
 import { useUserStore } from '@/stores'
 import type { Image } from '@/types/consult'
 import type { Message } from '@/types/room'
-import { showImagePreview, showToast } from 'vant'
+import { getConsultFlagText, getIllnessTimeText } from '@/utils/filter'
 import dayjs from 'dayjs'
+import { showImagePreview, showToast } from 'vant'
 import EvaluateCard from './EvaluateCard.vue'
-import { useShowPrescription } from '@/composables'
 
 defineProps<{
   item: Message
 }>()
 
-// 获取患病时间
-const getIllnessTimeText = (time: IllnessTime) =>
-  timeOptions.find((item) => item.value === time)?.label
-// 获取是否就诊
-const getConsultFlagText = (flag: 0 | 1) =>
-  flagOptions.find((item) => item.value === flag)?.label
 // 预览图片
 const onPreviewImage = (images?: Image[]) => {
   if (images && images.length) showImagePreview(images.map((item) => item.url))
