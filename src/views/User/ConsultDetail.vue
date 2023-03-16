@@ -11,6 +11,8 @@ import {
   useDeleteOrder,
   useShowPrescription
 } from '@/composables'
+import { useClipboard } from '@vueuse/core'
+import { showToast } from 'vant'
 
 const route = useRoute()
 const item = ref<ConsultOrderItem>()
@@ -27,6 +29,14 @@ const { loading: deleteLoading, deleteConsultOrder } = useDeleteOrder(() => {
 })
 
 const { onShowPrescription } = useShowPrescription()
+
+// 复制
+const { copy, isSupported } = useClipboard()
+const onCopy = async () => {
+  if (!isSupported.value) return showToast('未授权，不支持')
+  await copy(item.value?.orderNo || '')
+  showToast('已复制')
+}
 </script>
 
 <template>
@@ -76,7 +86,7 @@ const { onShowPrescription } = useShowPrescription()
       <van-cell-group :border="false">
         <van-cell title="订单编号">
           <template #value>
-            <span class="copy">复制</span>
+            <span class="copy" @click="onCopy()">复制</span>
             {{ item.orderNo }}
           </template>
         </van-cell>
