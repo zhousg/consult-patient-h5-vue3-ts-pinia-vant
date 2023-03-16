@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { useCancelOrder, useShowPrescription } from '@/composables'
+import {
+  useCancelOrder,
+  useDeleteOrder,
+  useShowPrescription
+} from '@/composables'
 import { OrderType } from '@/enums'
-import { deleteOrder } from '@/services/consult'
 import type { ConsultOrderItem } from '@/types/consult'
-import { showFailToast, showSuccessToast } from 'vant'
-import { ref } from 'vue'
 import ConsultMore from './ConsultMore.vue'
 
-defineProps<{
+const props = defineProps<{
   item: ConsultOrderItem
 }>()
 
@@ -33,19 +34,9 @@ const emit = defineEmits<{
   (e: 'on-delete', id: string): void
 }>()
 // 删除订单
-const deleteLoading = ref(false)
-const deleteConsultOrder = async (item: ConsultOrderItem) => {
-  try {
-    deleteLoading.value = true
-    await deleteOrder(item.id)
-    showSuccessToast('删除成功')
-    emit('on-delete', item.id)
-  } catch (error) {
-    showFailToast('删除失败')
-  } finally {
-    deleteLoading.value = false
-  }
-}
+const { loading: deleteLoading, deleteConsultOrder } = useDeleteOrder(() => {
+  emit('on-delete', props.item.id)
+})
 
 // 查看处方
 const { onShowPrescription } = useShowPrescription()
