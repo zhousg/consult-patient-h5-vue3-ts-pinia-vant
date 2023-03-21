@@ -6,3 +6,9 @@ export const getMedicalOrderPre = (params: { prescriptionId: string }) =>
 
 export const getAddresList = () =>
   request<AddressItem[]>('patient/order/address')
+
+export const createMedicalOrder = (data: {
+  id: string
+  addressId: string
+  couponId?: string
+}) => request<{ id: string }>('patient/medicine/order', 'POST', data)
