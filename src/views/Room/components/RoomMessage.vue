@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { useShowPrescription } from '@/composables'
-import { MsgType } from '@/enums'
+import { MsgType, PrescriptionStatus } from '@/enums'
 import { useUserStore } from '@/stores'
 import type { Image } from '@/types/consult'
-import type { Message } from '@/types/room'
+import type { Message, Prescription } from '@/types/room'
 import { getConsultFlagText, getIllnessTimeText } from '@/utils/filter'
 import dayjs from 'dayjs'
 import { showImagePreview, showToast } from 'vant'
 import EvaluateCard from './EvaluateCard.vue'
+import { useRouter } from 'vue-router'
 
 defineProps<{
   item: Message
@@ -25,6 +26,17 @@ const formatTime = (time: string) => dayjs(time).format('HH:mm')
 
 // 查看处方
 const { onShowPrescription } = useShowPrescription()
+
+// 跳转支付
+const router = useRouter()
+const buy = (pre?: Prescription) => {
+  if (!pre) return
+  if (pre.status === PrescriptionStatus.Invalid) return showToast('失效订单')
+  if (pre.status === PrescriptionStatus.NotPayment && !pre.orderId) {
+    return router.push(`/order/pay?id=${pre.id}`)
+  }
+  router.push(`/order/${pre.orderId}`)
+}
 </script>
 
 <template>
@@ -149,7 +161,9 @@ const { onShowPrescription } = useShowPrescription()
           <div class="num">x{{ med.quantity }}</div>
         </div>
       </div>
-      <div class="foot"><span>购买药品</span></div>
+      <div class="foot">
+        <span @click="buy(item.msg.prescription)">购买药品</span>
+      </div>
     </div>
   </div>
   <!-- 评价卡片，后期实现 -->
