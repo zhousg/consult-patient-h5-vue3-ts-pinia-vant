@@ -5,9 +5,11 @@ import {
   followOrUnfollow,
   getPrescriptionPic
 } from '@/services/consult'
+import { getMedicalOrderDetail } from '@/services/order'
 import type { ConsultOrderItem, FollowType } from '@/types/consult'
+import type { OrderDetail } from '@/types/order'
 import { showFailToast, showImagePreview, showSuccessToast } from 'vant'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 // Vue3概念：通过组合式API封装 数据逻辑 在一起的函数，组合式函数 useXxx
 // composable
@@ -71,4 +73,19 @@ export const useDeleteOrder = (cb: () => void) => {
     }
   }
   return { loading, deleteConsultOrder }
+}
+
+export const useOrderDetail = (id: string) => {
+  const order = ref<OrderDetail>()
+  const loading = ref(false)
+  onMounted(async () => {
+    try {
+      loading.value = true
+      const res = await getMedicalOrderDetail(id)
+      order.value = res.data
+    } finally {
+      loading.value = false
+    }
+  })
+  return { loading, order }
 }
