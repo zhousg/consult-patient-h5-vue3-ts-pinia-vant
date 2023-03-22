@@ -94,7 +94,7 @@ const { order } = useOrderDetail(route.params.id as string)
       <p class="price">
         需要支付：<span>￥{{ order.actualPayment }}</span>
       </p>
-      <van-action-bar-button color="#bbb" text="取消问诊" />
+      <van-action-bar-button color="#bbb" text="取消订单" />
       <van-action-bar-button type="primary" text="继续支付" />
     </van-action-bar>
     <!-- 已完成 -->
