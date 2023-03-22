@@ -1,4 +1,4 @@
-import type { AddressItem, OrderPre } from '@/types/order'
+import type { AddressItem, OrderDetail, OrderPre } from '@/types/order'
 import { request } from '@/utils/request'
 
 export const getMedicalOrderPre = (params: { prescriptionId: string }) =>
@@ -12,3 +12,6 @@ export const createMedicalOrder = (data: {
   addressId: string
   couponId?: string
 }) => request<{ id: string }>('patient/medicine/order', 'POST', data)
+
+export const getMedicalOrderDetail = (id: string) =>
+  request<OrderDetail>(`patient/medicine/order/detail/${id}`)
