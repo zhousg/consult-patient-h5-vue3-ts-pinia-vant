@@ -28,6 +28,38 @@ const initMap = () => {
       mapStyle: 'amap://styles/whitesmoke',
       zoom: 12
     })
+    AMap.plugin('AMap.Driving', function () {
+      // var driving = new AMap.Driving({
+      //   // 驾车路线规划策略，AMap.DrivingPolicy.LEAST_TIME是最快捷模式
+      //   policy: AMap.DrivingPolicy.LEAST_TIME
+      // })
+      // var startLngLat = [116.379028, 39.865042]
+      // var endLngLat = [116.427281, 39.903719]
+      // driving.search(startLngLat, endLngLat, function (status, result) {
+      //   // 未出错时，result即是对应的路线规划方案
+      // })
+      const driving = new AMap.Driving({
+        map,
+        showTraffic: false,
+        hideMarkers: true
+      })
+      if (
+        logistics.value?.logisticsInfo &&
+        logistics.value.logisticsInfo.length >= 2
+      ) {
+        const list = [...logistics.value.logisticsInfo]
+        const start = list.shift()
+        const end = list.pop()
+        driving.search(
+          [start?.longitude, start?.latitude],
+          [end?.longitude, end?.latitude],
+          { waypoints: list.map((item) => [item.longitude, item.latitude]) },
+          () => {
+            // 规划完毕
+          }
+        )
+      }
+    })
   })
 }
 </script>
