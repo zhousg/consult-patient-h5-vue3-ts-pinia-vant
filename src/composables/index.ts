@@ -6,9 +6,19 @@ import {
   getPrescriptionPic
 } from '@/services/consult'
 import { getMedicalOrderDetail } from '@/services/order'
+import { sendMobileCode } from '@/services/user'
 import type { ConsultOrderItem, FollowType } from '@/types/consult'
 import type { OrderDetail } from '@/types/order'
-import { showFailToast, showImagePreview, showSuccessToast } from 'vant'
+import type { CodeType } from '@/types/user'
+import {
+  showFailToast,
+  showImagePreview,
+  showSuccessToast,
+  type FormInstance,
+  showToast
+} from 'vant'
+import type { Ref } from 'vue'
+import { onUnmounted } from 'vue'
 import { ref, onMounted } from 'vue'
 
 // Vue3概念：通过组合式API封装 数据逻辑 在一起的函数，组合式函数 useXxx
@@ -88,4 +98,34 @@ export const useOrderDetail = (id: string) => {
     }
   })
   return { loading, order }
+}
+
+// 发送短信验证码
+export const useMobileCode = (
+  mobile: Ref<string>,
+  type: CodeType = 'login'
+) => {
+  const time = ref(0)
+  const form = ref<FormInstance>()
+  let timer: number
+  const onSend = async () => {
+    // 验证：倒计时 手机号
+    if (time.value > 0) return
+    await form.value?.validate('mobile')
+    await sendMobileCode(mobile.value, type)
+    showToast('发送成功')
+    time.value = 60
+    // 开启倒计时
+    if (timer) clearInterval(timer)
+    timer = setInterval(() => {
+      time.value--
+      if (time.value <= 0) clearInterval(timer)
+    }, 1000)
+  }
+
+  onUnmounted(() => {
+    clearInterval(timer)
+  })
+
+  return { onSend, time, form }
 }

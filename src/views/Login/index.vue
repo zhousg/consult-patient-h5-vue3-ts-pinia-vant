@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref, onUnmounted } from 'vue'
-import { mobileRules, passwordRules, codeRules } from '@/utils/rules'
-import { showSuccessToast, showToast, type FormInstance } from 'vant'
-import { loginByPassword, sendMobileCode, loginByMobile } from '@/services/user'
+import { useMobileCode } from '@/composables'
+import { loginByMobile, loginByPassword } from '@/services/user'
 import { useUserStore } from '@/stores'
+import { codeRules, mobileRules, passwordRules } from '@/utils/rules'
+import { showSuccessToast, showToast } from 'vant'
+import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const mobile = ref('')
@@ -29,27 +30,7 @@ const isPass = ref(true)
 const code = ref('')
 
 // 发送短信验证码
-const time = ref(0)
-const form = ref<FormInstance>()
-let timer: number
-const onSend = async () => {
-  // 验证：倒计时 手机号
-  if (time.value > 0) return
-  await form.value?.validate('mobile')
-  await sendMobileCode(mobile.value, 'login')
-  showToast('发送成功')
-  time.value = 60
-  // 开启倒计时
-  if (timer) clearInterval(timer)
-  timer = setInterval(() => {
-    time.value--
-    if (time.value <= 0) clearInterval(timer)
-  }, 1000)
-}
-
-onUnmounted(() => {
-  clearInterval(timer)
-})
+const { onSend, time, form } = useMobileCode(mobile)
 
 // 密码的可见与不可见
 const isShow = ref(false)
