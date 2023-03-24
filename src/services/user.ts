@@ -48,3 +48,9 @@ export const loginByQQ = (openId: string) =>
     openId,
     source: 'qq'
   })
+
+export const bindMobile = (data: {
+  mobile: string
+  code: string
+  openId: string
+}) => request<User>('login/binding', 'POST', data)

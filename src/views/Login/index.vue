@@ -109,6 +109,7 @@ const isShow = ref(false)
     <div class="login-other">
       <van-divider>第三方登录</van-divider>
       <a
+        @click="store.setReturnUrl(route.query.returnUrl as string)"
         class="icon"
         href="https://graph.qq.com/oauth2.0/authorize?client_id=102015968&response_type=token&scope=all&redirect_uri=http%3A%2F%2Fconsult-patients.itheima.net%2Flogin%2Fcallback"
       >
