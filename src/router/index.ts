@@ -86,6 +86,11 @@ const router = createRouter({
       meta: { title: '物流详情' }
     },
     {
+      path: '/login/callback',
+      component: () => import('@/views/Login/LoginCallback.vue'),
+      meta: { title: '三方登录' }
+    },
+    {
       path: '/',
       redirect: '/home',
       component: () => import('@/views/Layout/index.vue'),

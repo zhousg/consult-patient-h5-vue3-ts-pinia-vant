@@ -42,3 +42,9 @@ export const getPatientDetail = (id: string) =>
 
 export const getUnreadMessageCount = () =>
   request<number>('patient/message/unRead/all')
+
+export const loginByQQ = (openId: string) =>
+  request<User>('login/thirdparty', 'POST', {
+    openId,
+    source: 'qq'
+  })
