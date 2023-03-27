@@ -39,7 +39,7 @@ const isShow = ref(false)
 
 const url =
   'https://graph.qq.com/oauth2.0/authorize?client_id=102015968&response_type=token&scope=all&redirect_uri=' +
-  encodeURIComponent(import.meta.env.VITE_APP_CALLBACK + '/logi/callback')
+  encodeURIComponent(import.meta.env.VITE_APP_CALLBACK + '/login/callback')
 </script>
 
 <template>
