@@ -12,6 +12,8 @@ import { VantResolver } from 'unplugin-vue-components/resolvers'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import path from 'path'
 
+import { createHtmlPlugin } from 'vite-plugin-html'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
@@ -19,6 +21,7 @@ export default defineConfig({
     host: true
   },
   plugins: [
+    createHtmlPlugin(),
     vue(),
     // 样式重复引入，类型声明文件重复了
     Components({
