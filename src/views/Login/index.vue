@@ -7,8 +7,8 @@ import { showSuccessToast, showToast } from 'vant'
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-const mobile = ref('')
-const password = ref('')
+const mobile = ref('13211112222')
+const password = ref('abc12345')
 const agree = ref(false)
 
 const store = useUserStore()

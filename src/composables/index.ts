@@ -117,7 +117,7 @@ export const useMobileCode = (
     time.value = 60
     // 开启倒计时
     if (timer) clearInterval(timer)
-    timer = setInterval(() => {
+    timer = window.setInterval(() => {
       time.value--
       if (time.value <= 0) clearInterval(timer)
     }, 1000)
