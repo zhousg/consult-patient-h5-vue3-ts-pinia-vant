@@ -21,7 +21,8 @@ specifiers:
   nprogress: ^0.2.0
   pinia: ^2.0.21
   pinia-plugin-persistedstate: ^2.2.0
-  postcss-px-to-viewport: ^1.1.1
+  postcss: ^8.4.23
+  postcss-mobile-forever: ^3.3.1
   prettier: ^2.7.1
   sass: ^1.54.9
   socket.io-client: ^4.5.2
@@ -64,7 +65,8 @@ devDependencies:
   eslint-plugin-vue: 9.4.0_eslint@8.23.1
   mockjs: 1.1.0
   npm-run-all: 4.1.5
-  postcss-px-to-viewport: 1.1.1
+  postcss: 8.4.23
+  postcss-mobile-forever: 3.3.1_postcss@8.4.23
   prettier: 2.7.1
   sass: 1.54.9
   typescript: 4.7.4
@@ -505,7 +507,7 @@ packages:
       '@vue/shared': 3.2.39
       estree-walker: 2.0.2
       magic-string: 0.25.9
-      postcss: 8.4.16
+      postcss: 8.4.23
       source-map: 0.6.1
 
   /@vue/compiler-ssr/3.2.39:
@@ -2624,8 +2626,8 @@ packages:
   /ms/2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
 
-  /nanoid/3.3.4:
-    resolution: {integrity: sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==}
+  /nanoid/3.3.6:
+    resolution: {integrity: sha512-BGcqMMJuToF7i1rt+2PWSNVnWIkGCU78jBG3RxO/bZlnZPK2Cmi2QaffxGO/2RvWi9sL+FAiRiXMgsyxQ1DIDA==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
@@ -2927,19 +2929,20 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /postcss-mobile-forever/3.3.1_postcss@8.4.23:
+    resolution: {integrity: sha512-NShcD9Nk0PBrFV6pghn3M6JvZOiK1AvPFvhneTOecmAmxmGn3DXJVaWcULM4tk0CtEgYLZCFY2FBDP8hhwRlnw==}
+    peerDependencies:
+      postcss: ^8.0.0
+    dependencies:
+      postcss: 8.4.23
+    dev: true
+
   /postcss-prefix-selector/1.16.0_postcss@5.2.18:
     resolution: {integrity: sha512-rdVMIi7Q4B0XbXqNUEI+Z4E+pueiu/CS5E6vRCQommzdQ/sgsS4dK42U7GX8oJR+TJOtT+Qv3GkNo6iijUMp3Q==}
     peerDependencies:
       postcss: '>4 <9'
     dependencies:
       postcss: 5.2.18
-    dev: true
-
-  /postcss-px-to-viewport/1.1.1:
-    resolution: {integrity: sha512-2x9oGnBms+e0cYtBJOZdlwrFg/mLR4P1g2IFu7jYKvnqnH/HLhoKyareW2Q/x4sg0BgklHlP1qeWo2oCyPm8FQ==}
-    dependencies:
-      object-assign: 4.1.1
-      postcss: 8.4.16
     dev: true
 
   /postcss-selector-parser/6.0.10:
@@ -2960,11 +2963,11 @@ packages:
       supports-color: 3.2.3
     dev: true
 
-  /postcss/8.4.16:
-    resolution: {integrity: sha512-ipHE1XBvKzm5xI7hiHCZJCSugxvsdq2mPnsq5+UF+VHCjiBvtDrlxJfMBToWaP9D5XlgNmcFGqoHmUn0EYEaRQ==}
+  /postcss/8.4.23:
+    resolution: {integrity: sha512-bQ3qMcpF6A/YjR55xtoTr0jGOlnPOKAIMdOWiv0EIT6HVPEaJiJB4NLljSbiHoC2RX7DN5Uvjtpbg1NPdwv1oA==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
-      nanoid: 3.3.4
+      nanoid: 3.3.6
       picocolors: 1.0.0
       source-map-js: 1.0.2
 
@@ -3799,7 +3802,7 @@ packages:
         optional: true
     dependencies:
       esbuild: 0.15.7
-      postcss: 8.4.16
+      postcss: 8.4.23
       resolve: 1.22.1
       rollup: 2.78.1
       sass: 1.54.9
