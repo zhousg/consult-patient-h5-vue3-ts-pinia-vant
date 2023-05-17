@@ -1,8 +1,8 @@
 <svg width="92" height="92" viewBox="0 0 92 92" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g filter="url(#filter0_f_781_8517)">
+<g>
 <ellipse cx="46" cy="78" rx="16" ry="6" fill="#15CFCF" fill-opacity="0.5"/>
 </g>
-<g filter="url(#filter1_b_781_8517)">
+<g>
 <mask id="mask0_781_8517" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="7" y="44" width="78" height="42">
 <path d="M7 61.4589L35.8859 47.3156C42.2667 44.1914 49.7333 44.1914 56.1141 47.3157L85 61.4589V85.9999H7V61.4589Z" fill="#25D9C3"/>
 </mask>
@@ -10,7 +10,7 @@
 <path d="M7 68.9446C7 64.3633 9.60849 60.1817 13.7231 58.1671L33.6872 48.3922C41.4552 44.5888 50.5448 44.5888 58.3128 48.3922L78.2769 58.1671C82.3915 60.1817 85 64.3633 85 68.9446V79.9999C85 83.3136 82.3137 85.9999 79 85.9999H13C9.68629 85.9999 7 83.3136 7 79.9999V68.9446Z" fill="url(#paint0_linear_781_8517)"/>
 <path d="M29.6544 28.7043H69.8732V44.711C69.8732 52.9953 63.1574 59.711 54.8732 59.711H44.6544C36.3701 59.711 29.6544 52.9953 29.6544 44.711V28.7043Z" fill="#0DB9B9"/>
 </g>
-<g filter="url(#filter2_bdii_781_8517)">
+<g>
 <path d="M26.5 22.9695H65.5V38.2725C65.5 46.5568 58.7843 53.2725 50.5 53.2725H41.5C33.2157 53.2725 26.5 46.5568 26.5 38.2725V22.9695Z" fill="#6DF0DF" fill-opacity="0.5" shape-rendering="crispEdges"/>
 <path d="M27 23.4695H65V38.2725C65 46.2806 58.5081 52.7725 50.5 52.7725H41.5C33.4919 52.7725 27 46.2806 27 38.2725V23.4695Z" stroke="url(#paint1_linear_781_8517)" shape-rendering="crispEdges"/>
 </g>
@@ -20,7 +20,7 @@
 </g>
 </g>
 <defs>
-<filter id="filter0_f_781_8517" x="14" y="56" width="64" height="44" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter x="14" y="56" width="64" height="44" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
 <feGaussianBlur stdDeviation="8" result="effect1_foregroundBlur_781_8517"/>
