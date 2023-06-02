@@ -6,7 +6,7 @@ This template should help get you started developing with Vue 3 in Vite.
 
 https://zhousg.github.io/patient-h5-note/
 
-<video width="50%" src="http://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/app/test/20220903/202209032213177645201.mp4"><video>
+http://yjy-teach-oss.oss-cn-beijing.aliyuncs.com/app/test/20220903/202209032213177645201.mp4"
 
 ## Recommended IDE Setup
 
