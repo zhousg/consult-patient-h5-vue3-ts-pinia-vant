@@ -1,7 +1,12 @@
-# consult-patient-vue3
+# consult-patient-vue3 (Vue3 + TS + Pinia + Vant4)
 
 This template should help get you started developing with Vue 3 in Vite.    
-docs: https://zhousg.github.io/patient-h5-note/
+
+## Document 
+
+[开发文档](https://zhousg.github.io/patient-h5-note/)
+
+![](./public/bg1.png)
 
 ## Recommended IDE Setup
 
