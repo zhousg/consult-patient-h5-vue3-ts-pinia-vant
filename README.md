@@ -1,6 +1,6 @@
 # consult-patient-vue3 (Vue3 + TS + Pinia + Vant4)
 
-This template should help get you started developing with Vue 3 in Vite.    
+This template should help get you started developing with Vue 3 in Vite.    [![Page Views Count](https://badges.toozhao.com/badges/01H7Y5SE9F8P5Q0KBXGGP4ZDAG/orange.svg)](https://badges.toozhao.com/stats/01H7Y5SE9F8P5Q0KBXGGP4ZDAG "Get your own page views count badge on badges.toozhao.com")
 
 ## Document 
 
